@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import math
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,8 +13,13 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
 
-deposit = SHEET.worksheet('deposit')
+""""
+Get the sheet names ready for use
+"""
+balSheet = SHEET.worksheet("balance")
+depSheet = SHEET.worksheet("deposit")
+bankchrSheet = SHEET.worksheet("bankcharge")
+intSheet = SHEET.worksheet("interest")
 
-depositSheet = deposit.get_all_values()
+print(balSheet.get_all_records())
 
-print(depositSheet)
