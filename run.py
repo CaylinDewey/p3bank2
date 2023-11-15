@@ -21,35 +21,36 @@ depSheet = SHEET.worksheet("deposit")
 bankchrSheet = SHEET.worksheet("bankcharge")
 intSheet = SHEET.worksheet("interest")
 
+def add_deposit():
+    """"
+    Provide opportunity for client to deposit and request correct input if validation fails
+    """
+    while True:
+        print("Please enter the amount you want to deposit - with no cents e.g. Euro: 200")
+        dep_str = input("Euro:  ")
+        
+        if validate_deposit(dep_str):
+            break
 
-
-#  def deposit(self, amount):
-#         self.balance = self.balance + amount
-#         print("\nDeposit complete.")
-#         self.get_balance()
-
-#  def deposit(self, amount):
-#         self.balance = self.balance + amount
-#         print("\nDeposit complete.")
-#         self.get_balance()
-# deposit()
-
-# def deposit_worksheet(data, worksheet):
-#     """
-#     Updates clients with deposited amounts
-#     """
-#     print(f"Updating {worksheet} worksheet...\n")
-#     worksheet_to_update = SHEET.worksheet(worksheet)
-#     worksheet_to_update.append_row(data)
-#     print(f"{worksheet} worksheet updated successfully\n")
-
-
+def validate_deposit(values):
+    """
+    Converts all string values into integers and raises a ValueError if data is not valid.
+    """
+    try:
+        [int(value) for value in values]
+        print(f"You are depositing {values} Euro.\n")
+         
+    except ValueError as e:
+        print(f"Invalid amount, please try again.\n")
+        return False
+    
+    return True
 
 def main():
     """
     Run all program functions
     """
-    print(balSheet.get_all_records())
-
+    # print(balSheet.get_all_records())
+    add_deposit()
 print("The Banking App 2\n")
 main()
