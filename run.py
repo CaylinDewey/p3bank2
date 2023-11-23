@@ -85,8 +85,8 @@ def create_account_menu():
     if choice == '1':
             create_new_account()
     elif choice == '2':
+            print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
             exit_program_menu()
-            print("Good bye, hope you return soon.")
     else:
         print("Invalid choice. Please enter the numbers 1 or 2.")
         create_account_menu()
@@ -140,6 +140,7 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
     elif choice == '2':
         withdrawal_transaction(worksheet, old_balance, transaction_amount)
     elif choice == '3':
+        print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
         exit_program_menu()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
@@ -163,6 +164,7 @@ def withdrawal_transaction(worksheet, old_balance, transaction_amount):
     else:
         new_balance = old_balance - transaction_amount
         print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")
+        print("Thank you for using Quick Bank. Return soon! 😀\n")
         append_worksheet(worksheet, "Withdrawal", transaction_amount)
         return new_balance
 
