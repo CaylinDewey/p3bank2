@@ -13,18 +13,23 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
 
+# Prompt user for account name
 def account_name_prompt():
-    account_name = input ("Welcome, please enter your account name: \n")
+    account_name = input ("Welcome, please enter your account name: ")
     return account_name.lower()
 
+# Retrieve old balance from existing file - part I of II
 def retrieve_old_balance(account_name):
     try:
         worksheet = SHEET.worksheet(account_name)
-        old_balance = calculate_balance(worksheet)# Function below this function
-        print(f"The account has been found, the balance is {old_balance:.2f} Euros.")
+        old_balance_amount = calculate_balance(worksheet)# Function below this function
+        print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.")
+        return old_balance_amount
+        transaction_amount_prompt(old_balance_amount)
     except gspread.exceptions.WorksheetNotFound:
-        print(f"No account was found for {account_name}. Would you like to create a new account?")
+        create_account_menu()
 
+# Calculate retrieve old balance from existing file - part II of II
 def calculate_balance(worksheet):
     values = worksheet.get_all_values()
 
@@ -43,6 +48,102 @@ def calculate_balance(worksheet):
             withdrawals += amount
     return deposits - withdrawals
 
+# Create a new account menu
+def create_account_menu():
+    print("Your account could not be found.\n")
+    print("Would you like to: ")
+    print("1. Create a new account")
+    print("2. Retry")
+    print("3. Exit\n")
+    choice = input("Enter your choice:  ")
+    
+    if choice == '1':
+        create_new_account()
+    elif choice == '2':
+        account_name_prompt()
+    elif choice == '3':
+        exit_program_menu()
+    else:
+        print("Invalid choice. Please enter the numbers 1,2, or 3.")
+        create_account_menu()
 
-account_name = ask_account_name()
+# Respond to user choice create a new account
+def create_new_account():
+    account_name = account_name_prompt()
+    SHEET.add_worksheet(title=account_name, rows="100", cols="3")
+    worksheet = SHEET.worksheet(account_name)
+    worksheet.append_row(['Date', 'Description', 'Amount',])
+    old_balance_amount = 0.00
+    print(f"A new account {account_name} has been created. \n")
+    transaction_amount = transaction_amount_prompt()
+    transaction_menu(old_balance_amount, transaction_amount)
+
+# Prompt user for transaction type - part II of II - exit option
+def exit_program_menu():
+    print("Are you sure you want to exit?")
+    print("1. Yes")
+    print("2. No")
+    choice = input("Enter your choice in numbers:  ")
+
+    if choice == '1':
+        exit()
+    elif choice == '2':
+        account_name_prompt()
+    else:
+        print("Invalid choice. Please enter the numbers 1 or 2.")
+        exit_program_menu()
+
+# Prompt user for transaction amount
+def transaction_amount_prompt(old_balance):
+    print("What is the trasaction amount?")
+    try:
+        transaction_amount=float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
+        transaction_menu(transaction_amount)
+    except ValueError:
+        print("Invalid input, Please enter a valid number.")
+        return transaction_amount_prompt()
+
+# Prompt user for transaction type 
+def transaction_menu(old_balance, transaction_amount):
+    print("What would you like to do?")
+    print("1. Deposit")
+    print("2. Withdraw")
+    print("3. Exit")
+    choice = input("Enter your choice with a number (1,2, or 3)")
+
+    if choice == '1':
+        return deposit_transaction(old_balance, transaction_menu)
+    elif choice == '2':
+        return withdrawal_transaction(old_balance, transaction_menu)
+    elif choice == '3':
+        exit_program_menu()
+    else:
+        print("Invalid choice. Please enter 1,2, or 3")
+        return transaction_menu(old_balance, transaction_amount)
+
+# Deposit Transaction
+def deposit_transaction(old_balance, transaction_amount):
+    new_balance = old_balance + transaction_amount
+    print(f"Your deposit transaction was successful. Your new balance is {new_balance:.2f} Euros. ")
+    return new_balance
+
+# Withdrawal Transaction
+def withdrawal_transaction(old_balance, transaction_amount):
+    if transaction_amount > old_balance:
+        print(f"Your withdrawal amount exceeds the balance {old_balance:.2f} Euros. Please enter an amount less than your balance.")
+        return transaction_amount_prompt()
+    else:
+        new_balance = old_balance - transaction_amount
+        print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")
+        return new_balance
+
+# Append transactions to worksheet
+def append_worksheet(worksheet, transaction_type, transaction_amount):
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    worksheet.append_row([date, transaction_type, transaction_amount])
+
+
+
+# Call Functions (not nested)
+account_name = account_name_prompt()
 retrieve_old_balance(account_name)
