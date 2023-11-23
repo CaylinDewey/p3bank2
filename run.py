@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-
+from datetime import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,6 +12,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
+
+
 
 # Prompt user for account name
 def account_name_prompt():
@@ -25,7 +27,6 @@ def retrieve_old_balance(account_name):
         old_balance_amount = calculate_balance(worksheet)# Function below this function
         print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.")
         return old_balance_amount
-        transaction_amount_prompt(old_balance_amount)
     except gspread.exceptions.WorksheetNotFound:
         create_account_menu()
 
@@ -33,20 +34,19 @@ def retrieve_old_balance(account_name):
 def calculate_balance(worksheet):
     values = worksheet.get_all_values()
 
-    if len(values) <2:
-      return 0.0
-
-    deposits = withdrawals = 0
-
     for row in values[1:]:# [1]: iterates over second row only, now all rows including header
-        _, transaction_type, amount_str, _ = row
-        amount = float(amount_str)
+        if len(values) <2:
+            return 0.00
+        deposits = withdrawals = 0
 
-        if transaction_type.lower().strip() == 'deposit':
-            deposits += amount
-        elif transaction_type.lower().strip() == 'withdrawal':
-            withdrawals += amount
-    return deposits - withdrawals
+        for row in values[1:]:
+            _, transaction_type, amount_str = row
+            amount = float(amount_str)
+            if transaction_type.lower().strip() == 'deposit':
+                deposits += amount
+            elif transaction_type.lower().strip() == 'withdrawal':
+                withdrawals += amount    
+        return deposits - withdrawals
 
 # Create a new account menu
 def create_account_menu():
@@ -76,7 +76,7 @@ def create_new_account():
     old_balance_amount = 0.00
     print(f"A new account {account_name} has been created. \n")
     transaction_amount = transaction_amount_prompt()
-    transaction_menu(old_balance_amount, transaction_amount)
+    transaction_menu(worksheet, old_balance_amount, transaction_amount)
 
 # Prompt user for transaction type - part II of II - exit option
 def exit_program_menu():
@@ -95,16 +95,15 @@ def exit_program_menu():
 
 # Prompt user for transaction amount
 def transaction_amount_prompt(old_balance):
-    print("What is the trasaction amount?")
     try:
         transaction_amount=float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
-        transaction_menu(transaction_amount)
+        transaction_menu(worksheet, old_balance, transaction_amount)
     except ValueError:
         print("Invalid input, Please enter a valid number.")
-        return transaction_amount_prompt()
+        return transaction_amount_prompt(old_balance)
 
 # Prompt user for transaction type 
-def transaction_menu(old_balance, transaction_amount):
+def transaction_menu(worksheet, old_balance, transaction_amount):
     print("What would you like to do?")
     print("1. Deposit")
     print("2. Withdraw")
@@ -112,29 +111,31 @@ def transaction_menu(old_balance, transaction_amount):
     choice = input("Enter your choice with a number (1,2, or 3)")
 
     if choice == '1':
-        return deposit_transaction(old_balance, transaction_menu)
+        return deposit_transaction(worksheet, old_balance, transaction_amount)
     elif choice == '2':
-        return withdrawal_transaction(old_balance, transaction_menu)
+        return withdrawal_transaction(worksheet, old_balance, transaction_amount)
     elif choice == '3':
         exit_program_menu()
     else:
         print("Invalid choice. Please enter 1,2, or 3")
-        return transaction_menu(old_balance, transaction_amount)
+        return transaction_menu(worksheet, old_balance, transaction_amount)
 
 # Deposit Transaction
-def deposit_transaction(old_balance, transaction_amount):
+def deposit_transaction(worksheet, old_balance, transaction_amount):
     new_balance = old_balance + transaction_amount
     print(f"Your deposit transaction was successful. Your new balance is {new_balance:.2f} Euros. ")
+    append_worksheet(worksheet, "Deposit", transaction_amount)
     return new_balance
 
 # Withdrawal Transaction
-def withdrawal_transaction(old_balance, transaction_amount):
+def withdrawal_transaction(worksheet, old_balance, transaction_amount):
     if transaction_amount > old_balance:
         print(f"Your withdrawal amount exceeds the balance {old_balance:.2f} Euros. Please enter an amount less than your balance.")
         return transaction_amount_prompt()
     else:
         new_balance = old_balance - transaction_amount
         print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")
+        append_worksheet(worksheet, "Withdrawal", transaction_amount)
         return new_balance
 
 # Append transactions to worksheet
