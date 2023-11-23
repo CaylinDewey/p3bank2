@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import datetime
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -13,19 +13,19 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
 
-def ask_account_name():
-    account_name = input ("Enter your account name: ")
+def account_name_prompt():
+    account_name = input ("Welcome, please enter your account name: \n")
     return account_name.lower()
 
-def check_balance(account_name):
+def retrieve_old_balance(account_name):
     try:
         worksheet = SHEET.worksheet(account_name)
         old_balance = calculate_balance(worksheet)# Function below this function
-        print(f"Your account has been found, the balance is {old_balance:.2f} Euros.")
+        print(f"The account has been found, the balance is {old_balance:.2f} Euros.")
     except gspread.exceptions.WorksheetNotFound:
         print(f"No account was found for {account_name}. Would you like to create a new account?")
 
-def calculate_balance(worksheet):# function in ask_account_name
+def calculate_balance(worksheet):
     values = worksheet.get_all_values()
 
     if len(values) <2:
@@ -45,8 +45,4 @@ def calculate_balance(worksheet):# function in ask_account_name
 
 
 account_name = ask_account_name()
-check_balance(account_name)
-
-
-
-
+retrieve_old_balance(account_name)
