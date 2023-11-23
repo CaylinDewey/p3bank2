@@ -14,6 +14,13 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
 
 
+print("##########################")
+print("#                        #")
+print("#  WELCOME TO THE BANK   #")
+print("#                        #")
+print("##########################")
+
+
 
 # Prompt user for account name
 def account_name_prompt():
@@ -28,7 +35,7 @@ def retrieve_old_balance(account_name):
         print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.")
         transaction_amount_prompt(worksheet, old_balance_amount)
     except gspread.exceptions.WorksheetNotFound:
-        create_account_menu()
+        create_account_menu(account_name)
 
 # Calculate retrieve old balance from existing file - part II of II
 def calculate_balance(worksheet):
@@ -49,7 +56,7 @@ def calculate_balance(worksheet):
     return deposits - withdrawals
 
 # Create a new account menu
-def create_account_menu():
+def create_account_menu(account_name=None):
     print("Your account could not be found.\n")
     print("Would you like to: ")
     print("1. Create a new account")
@@ -58,9 +65,11 @@ def create_account_menu():
     choice = input("Enter your choice:  ")
     
     if choice == '1':
-        create_new_account()
+        account_name = account_name_prompt()
+        create_new_account(account_name)
     elif choice == '2':
-        account_name_prompt()
+        account_name = account_name_prompt()
+        retrieve_old_balance(account_name)
     elif choice == '3':
         exit_program_menu()
     else:
@@ -68,15 +77,13 @@ def create_account_menu():
         create_account_menu()
 
 # Respond to user choice create a new account
-def create_new_account():
-    account_name = account_name_prompt()
+def create_new_account(account_name):
     SHEET.add_worksheet(title=account_name, rows="100", cols="3")
     worksheet = SHEET.worksheet(account_name)
     worksheet.append_row(['Date', 'Description', 'Amount',])
     old_balance_amount = 0.00
     print(f"A new account {account_name} has been created. \n")
-    transaction_amount = transaction_amount_prompt(old_balance_amount)
-    transaction_menu(worksheet, old_balance_amount, transaction_amount)
+    transaction_amount_prompt(worksheet, old_balance_amount, account_name)
 
 # Prompt user for transaction type - part II of II - exit option
 def exit_program_menu():
@@ -94,16 +101,16 @@ def exit_program_menu():
         exit_program_menu()
 
 # Prompt user for transaction amount
-def transaction_amount_prompt(worksheet, old_balance):
+def transaction_amount_prompt(worksheet, old_balance, account_name):
     try:
         transaction_amount=float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
-        transaction_menu(worksheet, old_balance, transaction_amount)
+        transaction_menu(worksheet, old_balance, transaction_amount, account_name)
     except ValueError:
         print("Invalid input, Please enter a valid number.")
-        return transaction_amount_prompt(worksheet, old_balance)
+        return transaction_amount_prompt(worksheet, old_balance, account_name)
 
 # Prompt user for transaction type 
-def transaction_menu(worksheet, old_balance, transaction_amount):
+def transaction_menu(worksheet, old_balance, transaction_amount, account_name):
     print("What would you like to do?")
     print("1. Deposit")
     print("2. Withdraw")
@@ -118,7 +125,7 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
         exit_program_menu()
     else:
         print("Invalid choice. Please enter 1,2, or 3.")
-        return transaction_menu(worksheet, old_balance, transaction_amount)
+        return transaction_menu(worksheet, old_balance, transaction_amount, account_name)
 
 # Deposit Transaction
 def deposit_transaction(worksheet, old_balance, transaction_amount):
@@ -148,4 +155,3 @@ def append_worksheet(worksheet, transaction_type, transaction_amount):
 # Call Functions (not nested)
 account_name = account_name_prompt()
 retrieve_old_balance(account_name)
-
