@@ -27,22 +27,22 @@ account_name = None
 def account_name_prompt():
     global account_name
     while True:
-        account_name = input ("Please enter your account name: \n").lower()
-        if account_name:
+        account_name = input ("Please enter your account name reference: \n").lower()
+        if account_name and account_name.isalnum():
             try:
                 worksheet = SHEET.worksheet(account_name)
                 retrieve_old_balance()
                 return account_name
             except gspread.exceptions.WorksheetNotFound:
-                print(f"The {account_name} was not found.")
+                print(f"The account reference \033[1m{account_name}\033[0m was not found.")
                 create_account_menu()
             else:
-                print("Account name cannot be empty. Please enter a valid account name.")
+                print("Account name must be alphanumeric and cannot be empty. Please enter a valid account name.")
 
 # Retrieve old balance from existing file - part I of II
 def retrieve_old_balance():
     global account_name
-    print(f"Attempting to retrieve balance for account: {account_name}...🏃‍♀️")
+    print(f"Attempting to retrieve balance for account: \033[1m{account_name}\033[0m...🏃‍♀️")
     try:
         worksheet = SHEET.worksheet(account_name)# here it checks if the account_name exists
         old_balance_amount = calculate_balance(worksheet)# Function below this function
@@ -120,7 +120,6 @@ def exit_program_menu():
 def transaction_amount_prompt(worksheet, old_balance):
     global account_name
     try:
-        print("Now that we have your account, let's enter the amount....\n")
         transaction_amount = float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
         transaction_menu(worksheet, old_balance, transaction_amount)
     except ValueError:
@@ -178,4 +177,3 @@ def append_worksheet(worksheet, transaction_type, transaction_amount):
 
 # Call Functions (not nested)
 account_name_prompt()
-
