@@ -26,7 +26,7 @@ def retrieve_old_balance(account_name):
         worksheet = SHEET.worksheet(account_name)
         old_balance_amount = calculate_balance(worksheet)# Function below this function
         print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.")
-        transaction_menu(worksheet, old_balance_amount, 0.00)
+        transaction_amount_prompt(worksheet, old_balance_amount)
     except gspread.exceptions.WorksheetNotFound:
         create_account_menu()
 
@@ -94,13 +94,13 @@ def exit_program_menu():
         exit_program_menu()
 
 # Prompt user for transaction amount
-def transaction_amount_prompt(old_balance):
+def transaction_amount_prompt(worksheet, old_balance):
     try:
         transaction_amount=float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
         transaction_menu(worksheet, old_balance, transaction_amount)
     except ValueError:
         print("Invalid input, Please enter a valid number.")
-        return transaction_amount_prompt(old_balance)
+        return transaction_amount_prompt(worksheet, old_balance)
 
 # Prompt user for transaction type 
 def transaction_menu(worksheet, old_balance, transaction_amount):
@@ -108,7 +108,7 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
     print("1. Deposit")
     print("2. Withdraw")
     print("3. Exit")
-    choice = input("Enter your choice with a number (1,2, or 3)")
+    choice = input("Enter your choice with a number (1,2, or 3):   ")
 
     if choice == '1':
         return deposit_transaction(worksheet, old_balance, transaction_amount)
@@ -117,7 +117,7 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
     elif choice == '3':
         exit_program_menu()
     else:
-        print("Invalid choice. Please enter 1,2, or 3")
+        print("Invalid choice. Please enter 1,2, or 3.")
         return transaction_menu(worksheet, old_balance, transaction_amount)
 
 # Deposit Transaction
@@ -131,7 +131,7 @@ def deposit_transaction(worksheet, old_balance, transaction_amount):
 def withdrawal_transaction(worksheet, old_balance, transaction_amount):
     if transaction_amount > old_balance:
         print(f"Your withdrawal amount exceeds the balance {old_balance:.2f} Euros. Please enter an amount less than your balance.")
-        return transaction_amount_prompt()
+        return transaction_amount_prompt(worksheet, old_balance)
     else:
         new_balance = old_balance - transaction_amount
         print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")
