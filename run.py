@@ -26,7 +26,7 @@ def retrieve_old_balance(account_name):
         worksheet = SHEET.worksheet(account_name)
         old_balance_amount = calculate_balance(worksheet)# Function below this function
         print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.")
-        return old_balance_amount
+        transaction_menu(worksheet, old_balance_amount, 0.00)
     except gspread.exceptions.WorksheetNotFound:
         create_account_menu()
 
@@ -34,19 +34,19 @@ def retrieve_old_balance(account_name):
 def calculate_balance(worksheet):
     values = worksheet.get_all_values()
 
-    for row in values[1:]:# [1]: iterates over second row only, now all rows including header
-        if len(values) <2:
-            return 0.00
-        deposits = withdrawals = 0
+    if len(values) <2:
+        return 0.00
 
-        for row in values[1:]:
-            _, transaction_type, amount_str = row
-            amount = float(amount_str)
-            if transaction_type.lower().strip() == 'deposit':
-                deposits += amount
-            elif transaction_type.lower().strip() == 'withdrawal':
-                withdrawals += amount    
-        return deposits - withdrawals
+    deposits = withdrawals = 0
+
+    for row in values[1:]:
+        _, transaction_type, amount_str = row
+        amount = float(amount_str)
+        if transaction_type.lower().strip() == 'deposit':
+            deposits += amount
+        elif transaction_type.lower().strip() == 'withdrawal':
+            withdrawals += amount    
+    return deposits - withdrawals
 
 # Create a new account menu
 def create_account_menu():
@@ -75,7 +75,7 @@ def create_new_account():
     worksheet.append_row(['Date', 'Description', 'Amount',])
     old_balance_amount = 0.00
     print(f"A new account {account_name} has been created. \n")
-    transaction_amount = transaction_amount_prompt()
+    transaction_amount = transaction_amount_prompt(old_balance_amount)
     transaction_menu(worksheet, old_balance_amount, transaction_amount)
 
 # Prompt user for transaction type - part II of II - exit option
@@ -148,3 +148,4 @@ def append_worksheet(worksheet, transaction_type, transaction_amount):
 # Call Functions (not nested)
 account_name = account_name_prompt()
 retrieve_old_balance(account_name)
+
