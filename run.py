@@ -77,7 +77,6 @@ def create_account_menu(account_name):
     if choice == '1':
             create_new_account(account_name)
     elif choice == '2':
-            print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
             exit_program_menu()
     else:
         print("Invalid choice. Please enter the numbers 1 or 2.")
@@ -95,18 +94,19 @@ def create_new_account(account_name):
 
 # Prompt user for transaction type - part II of II - exit option
 def exit_program_menu():
-    # print("Are you sure you want to exit?")
-    # print("1. Yes")
-    # print("2. No")
-    # choice = input("Enter your choice in numbers:  ")
+    print("Are you sure you want to exit?")
+    print("1. Yes")
+    print("2. No")
+    choice = input("Enter your choice in numbers:  ")
 
-    # if choice == '1':
+    if choice == '1':
+        print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
         exit()
-    # elif choice == '2':
-    #     account_name_prompt()
-    # else:
-    #     print("Invalid choice. Please enter the numbers 1 or 2.")
-        # exit_program_menu()
+    elif choice == '2':
+        account_name_prompt()
+    else:
+        print("Invalid choice. Please enter the numbers 1 or 2.")
+    exit_program_menu()
 
 # Prompt user for transaction amount
 def transaction_amount_prompt(worksheet, old_balance):
@@ -132,7 +132,6 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
     elif choice == '2':
         withdrawal_transaction(worksheet, old_balance, transaction_amount)
     elif choice == '3':
-        print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
         exit_program_menu()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
