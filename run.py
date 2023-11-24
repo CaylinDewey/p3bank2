@@ -23,8 +23,8 @@ print("##########################")
 def account_name_prompt():
     
     while True:
-        account_name = input ("Please enter your account name reference: \n").lower()
-        if account_name and account_name.isalnum():
+        account_name = input ("Please enter your account name reference (max. 15 characters): \n").lower()
+        if account_name and account_name.isalnum() and len(account_name) <=15:
             try:
                 worksheet = SHEET.worksheet(account_name)
                 retrieve_old_balance(account_name)
@@ -33,7 +33,7 @@ def account_name_prompt():
                 print(f"The account reference \033[1m{account_name}\033[0m was not found.")
                 create_account_menu(account_name)
         else:             
-            print("Account name must be alphanumeric and cannot be empty. Please enter a valid account name.")
+            print("Account name must be alphanumeric, no spaces and a maximum of 15 characters. Please try again.")
 
 # Retrieve old balance from existing file - part I of II
 def retrieve_old_balance(account_name):
@@ -42,7 +42,7 @@ def retrieve_old_balance(account_name):
     try:
         worksheet = SHEET.worksheet(account_name)# here it checks if the account_name exists
         old_balance_amount = calculate_balance(worksheet)# Function below this function
-        print(f"The account has been found, the balance is {old_balance_amount:.2f} Euros.\n")
+        print(f"The account has been found, the balance is {old_balance_amount:,.2f} Euros.\n")
         transaction_amount_prompt(worksheet, old_balance_amount)
     except gspread.exceptions.WorksheetNotFound:
         print(f"The account {account_name} was not found.")
@@ -142,7 +142,7 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
 def deposit_transaction(worksheet, old_balance, transaction_amount):
     
     new_balance = old_balance + transaction_amount
-    print(f"Your deposit transaction was successful. Your new balance is {new_balance:.2f} Euros. \n")
+    print(f"Your deposit transaction was successful. Your new balance is {new_balance:,.2f} Euros. \n")
     print("Thank you for using Quick Bank. Return soon! 😀\n")
     append_worksheet(worksheet, "Deposit", transaction_amount, new_balance)
     return new_balance
@@ -151,11 +151,11 @@ def deposit_transaction(worksheet, old_balance, transaction_amount):
 def withdrawal_transaction(worksheet, old_balance, transaction_amount):
     
     if transaction_amount > old_balance:
-        print(f"Your withdrawal amount exceeds the balance {old_balance:.2f} Euros. Please enter an amount less than your balance.")
+        print(f"Your withdrawal amount exceeds the balance {old_balance:,.2f} Euros. Please enter an amount less than your balance.")
         return transaction_amount_prompt(worksheet, old_balance)
     else:
         new_balance = old_balance - transaction_amount
-        print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")   
+        print(f"Your withdrawal has been successful. Your new balance is {new_balance:,.2f} Euros. ")   
         print("Thank you for using Quick Bank. Return soon! 😀\n")
         append_worksheet(worksheet, "Withdrawal", transaction_amount, new_balance)
         return new_balance
