@@ -59,19 +59,13 @@ def calculate_balance(worksheet):
     if len(values) <2:
         return 0.00
 
-    deposits = withdrawals = 0
-
-    for row in values[1:]:
-        _, transaction_type, amount_str, balance = row
-        amount = float(amount_str)
-        if transaction_type.lower().strip() == 'deposit':
-            deposits += amount
-        elif transaction_type.lower().strip() == 'withdrawal':
-            withdrawals += amount
-        elif transaction_type.lower().strip() == 'balance':
-            return new_balance
-    return deposits - withdrawals
-
+    for row in reversed(values[1:]):
+        _, _, _, balance_str = row
+        balance = float(balance_str.strip().lower())
+        return balance
+    
+    return 0.00
+        
 # Create a new account menu
 def create_account_menu(account_name):
 
