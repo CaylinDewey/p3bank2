@@ -62,12 +62,14 @@ def calculate_balance(worksheet):
     deposits = withdrawals = 0
 
     for row in values[1:]:
-        _, transaction_type, amount_str = row
+        _, transaction_type, amount_str, balance = row
         amount = float(amount_str)
         if transaction_type.lower().strip() == 'deposit':
             deposits += amount
         elif transaction_type.lower().strip() == 'withdrawal':
             withdrawals += amount
+        elif transaction_type.lower().strip() == 'balance':
+            return new_balance
     return deposits - withdrawals
 
 # Create a new account menu
@@ -90,9 +92,9 @@ def create_account_menu(account_name):
 # Respond to user choice create a new account
 def create_new_account(account_name):
 
-    SHEET.add_worksheet(title=account_name, rows="100", cols="3")
+    SHEET.add_worksheet(title=account_name, rows="100", cols="7")
     worksheet = SHEET.worksheet(account_name)
-    worksheet.append_row(['Date', 'Description', 'Amount'])
+    worksheet.append_row(['Date', 'Description', 'Amount', 'Balance'])
     old_balance_amount = 0.00
     print(f"A new account {account_name} has been created. \n")
     transaction_amount_prompt(worksheet, old_balance_amount)
@@ -148,7 +150,7 @@ def deposit_transaction(worksheet, old_balance, transaction_amount):
     new_balance = old_balance + transaction_amount
     print(f"Your deposit transaction was successful. Your new balance is {new_balance:.2f} Euros. \n")
     print("Thank you for using Quick Bank. Return soon! 😀\n")
-    append_worksheet(worksheet, "Deposit", transaction_amount)
+    append_worksheet(worksheet, "Deposit", transaction_amount, new_balance)
     return new_balance
 
 # Withdrawal Transaction
@@ -161,14 +163,14 @@ def withdrawal_transaction(worksheet, old_balance, transaction_amount):
         new_balance = old_balance - transaction_amount
         print(f"Your withdrawal has been successful. Your new balance is {new_balance:.2f} Euros. ")   
         print("Thank you for using Quick Bank. Return soon! 😀\n")
-        append_worksheet(worksheet, "Withdrawal", transaction_amount)
+        append_worksheet(worksheet, "Withdrawal", transaction_amount, new_balance)
         return new_balance
 
 # Append transactions to worksheet
-def append_worksheet(worksheet, transaction_type, transaction_amount):
+def append_worksheet(worksheet, transaction_type, transaction_amount, new_balance):
 
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    worksheet.append_row([date, transaction_type, transaction_amount])
+    worksheet.append_row([date, transaction_type, transaction_amount, new_balance])
     exit_program_menu()
 
 
