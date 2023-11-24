@@ -26,7 +26,6 @@ def account_name_prompt():
         account_name = input ("Please enter your account name reference: \n").lower()
         if account_name and account_name.isalnum():
             try:
-                print(account_name)
                 worksheet = SHEET.worksheet(account_name)
                 retrieve_old_balance(account_name)
                 return account_name
