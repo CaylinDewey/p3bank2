@@ -144,7 +144,7 @@ def transMenu(worksheet, oldBal, transAmt):
         transMenu(worksheet, oldBal, transAmt)
 
 
-# Deposit Transaction  depositTransaction
+# Deposit Transaction
 def depTrans(worksheet, oldBal, transAmt):
 
     newBal = oldBal + transAmt

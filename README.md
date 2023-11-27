@@ -1,180 +1,142 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
-
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
-
-
 
 # Quick Bank
-This app allows you to keep a record of all withdrawals and deposits made to various accounts.  It is an easy, simple, way to keep track of ledgers.
+Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  
 
-The site is responsive to viewing on mobiles, tablets, laptops, and desktops.  
+Users can create accounts, make withdrawals, deposits and access their balance. [Here is a live version of the project.](https://p3-bank2-bedbb06cdecb.herokuapp.com/).
 
-![Responsive](assets/images/readme/am-i-responsive.png)
+![Responsive](assets/readme/am_I_responsive.png)
 
-Please view the Decision Helper live project [here](https://caylindewey.github.io/project2-v1/).
+
 
 - - -
 
 # Table of Contents
-## [User Experience](#user-experience-1)
-### [User Stories UX](#user-stories-ux-1)
-#### [First Time Visitor Goals](#first-time-visitor-goals-1) 
-#### [Returning Visitor Goals](#returning-visitor-goals-1)
-#### [Frequent Visitor Goals](#frequent-visitor-goals-1)
-
+# [Quick Bank](#quick-bank)
+## [Introduction](#introduction-1)
 ## [Features](#features-1)
 ### [Existing Features](#existing-features-1)
-#### [Personalisation](#personalisation-1)
-#### [Clear Buttons](#clear-buttons-1)
-#### [Footer](#footer-1)
-#### [Main Headings](#main-headings-1)
 ### [Features Left to Implement](#features-left-to-implement-1)
 ## [Design](#design-1)
-### [Color Scheme](#color-scheme-1)
-### [Typography](#typography-1)
 ### [Wireframes](#wireframes-1)
 ## [Technologies Used](#technologies-used-1)
 ## [Frameworks, Libraries and Programs](#frameworks-libraries-and-programs-1)
 ## [Testing](#testing-1)
 ### [Issues and Bugs](#issues-and-bugs-1)
-### [Validator Results](#validator-results-1)
-### [Jshint Testing](#jshint-testing-1)
 ### [Manual Testing](#manual-testing-1)
-### [WAVE Testing](#w)
-### [Lighthouse Testing](#lighthouse-testing-1)
 ## [Deployment and Local Development](#deployment-and-local-development-1)
-#### [How to Deploy](#how-to-deploy-1)
-#### [How to Fork](#how-to-fork-1)
-#### [How to Clone](#how-to-clone-1)
 ## [Credits](#credits-1)
 ### [Code and Media](#code--media-1)
 ### [Content](#content-1)
 ## [Acknowledgements](#acknowledgements-1)
 
-# Decision Helper
-## User Experience
-- A <b>user-centered</b> approach was taken with the design of a lean, simple and elegant site.
-- The user should be able to start the game, <i><b>filling in a name and then the question</i></b> within a short period of time.
-- The site should be <b>future-proofed</b> to accomodate <b>scalability</b> but keep the navigation of the site consistent for the user - regardless of growth and expansion.  Future ideas are to include are pages with more elaborate decision making process. Theme-related advertising that can generate income can also be considered.
+# Quick Bank
+## Introduction
+- This application can be described as a simple banking application.
+- The purpose of the application is to help users keep track of deposits, withdrawals and balances. 
+- The user demographic includes teen-agers, adults and the elderly - anybody who needs to keep track of their banking accounts. 
+- It can also be used for small business owners to help keep track of their banking account transactions.
 
+### Description
+- The banking application can be used by anybody who has the need to track bank account withdrawals, deposits and balances. 
+- It is easy to understand and the prompts only asks for essential information.
 
-### User Stories UX
-#### First Time Visitor Goals
-- As a user, I want to be able to start this game quickly and generate a score for my decision easily. The decision should include a margin of randomness. The input of the user name and question is optional for this reason.
+### User Demographic
+It is intended for user that need to keep track of their transactions and <b>balances</b> and can be used by the any person who has opened an account and needs to keep track of the balance.
 
-#### Returning Visitor Goals
-- The same basic structure will allow for consistency and predictability for returning users.
-- Users wuold be able to prepare better for decision making with each use but would have to return to this site for the random feedback.
+### Instructions
+- The user will be prompted to enter the account number which will automatically be converted to lowercase. Alphanumerics can be used up to 15 characters.
+- A transaction amount needs to be captured on the next prompt.
+- Hereafter the user will be prompted to select a number based on which item on the menu they would like to continue.
 
-#### Frequent Visitor Goals
-- The user can easily access this site for decisions both big and small providing they want the random feedback in their decision.
-- The user will be more mindfull of feelings with more use promoting emotional wellness.
 
 ## Features
-- The site is responsive on all device sizes.
+- As a first-time visitor I want a simple, clear and quick user-experience. 
+- When I return I want to be able to transact quickly and see what the new balance is. 
+- I want the menu to be predictable and easy to navigate.
+- I want a forgiving data input standard that won't be rigit about the data I give.
 
 ### Existing Features
-#### Personalisation
-- The user fills in the name and the question which adds a personalised element to the service.
+- The user is prompted with a choice to create a new account if none was found or try to input the account number again.
+- Account names are automatically converted to lower case.  This is to prevent case sensitivity and promote user ease of use.
 
-![Personalised](assets/images/readme/personalised-site.png)
-#### Clear Buttons
-- The choices to make a decision is simple and clear. The user is encouraged to hit the buttons for every concern they have about the decision.
+![Creat Account Menu](assets/readme/create_new_account.png)
 
-![Clear Buttons Desktop](assets/images/readme/clear-buttons-desktop.png)
 
-On the mobile device the buttons are still easy to use. 
+- The user can insert a transaction amount which will automatically round up any more than or less than two decimals places. 
 
-![Clear Buttons Mobile](assets/images/readme/clear-buttons-mobile.png)
+![Transaction Amount](assets/readme/deposit.png)
 
-#### Footer
-- Disclaimer and copyright information prevents legal protection.
+- If the user accidently selects the exit prompt, another prompt ensures that the user has the chance to go back into the menu or go out.  
 
-![Disclaimer](assets/images/readme/disclaimer.png)
+![Exit Menu](assets/readme/exit-prompt.png)
 
-#### Main Headings
-The headings are clear and concise describing exactly what to do next. This avoids the need for rules and further explanations.
+- The menu is easy to understand and use.
+- The old balance and new balance is given.
+- The user can easily see how much is in the account if the withdrawal exceeds the balance and can try again.
+- The transaction date and time is automatically inserted so that admin charges and interest earned can be calculated later.
 
-### Features Left to Implement
-- In future links to professional services, decision tutorials, and personal growth courses, could be included on the site. 
-- Adverts for these services could also generate income.
+
+- Invalid account names were inserted using the space bar, enter on blanc space, other characters and inputting more than 15 characters. An invalid prompt gave the user the opportunity to try again. Account names are automatically converted to lower case to prevent case sensitivite account names.
+- Invalid amounts were given as a transaction amount and the user was again prompted to try and enter a valid amount. Amounts were automatically rounded.
+- On the account name prompt the space, other character and a blanc enter was tested to ensure that the user could only use alphanumerics. Default invalid use gives the user another try if selected.
+- The account name can only take a maximum of 17 characters.
+- The amount also is rounded to prevent user fatigue when inputting invalid formats. It is easy to input. The user also has the option to exit if the wrong amount has been captured before the transaction type is selected.
+- A check is prompted for users to prevent withdrawals that exceed the balance. The user is prompted back to the menu when this happen. The current balance is shown so that the user can see how much is available for withdrawal.
+- The user can exit the program at several points, making for a <b>forgiving and easy to use user-experience</b>.
+
+### Featues Left to Implement
+ - A maximum amount of accounts should be set as a default and perhaps the facility to apply for more accounts.
+ - A interest earned calculation can be added by using the date and balance in the data as a reference to calculate interest earned.
+
+## Data Model
+- Google sheets is easily accessible and easy to use for account data.
+- Today's date is automatically inserted for both security, referencing and future-proofing the accounts for more complicated calculations.
+
+![Google sheets](assets/readme/google_account.png)
+
+## Testing
+The project has been manually tested in the following way:
+- The code was passed through a PEP8 linter and no error status is confirmed.
+- Given invalid inpts: strings when numbers are expected, out of bounds iputs, same inputs twice.
+- Tested in my local terminal and Code Institute Heroku terminal.
+
+### Bugs
+#### Solved Bugs
+- There were many parameter issues regarding the account name but this was solved with the help of Code Institute student support and my mentor. 
+- There were also issues with the balance of the old accounts vs the balance on the new accounts. Atomic, modular code helped to separate the two and deal with them individually to ensure accuracy.
+
+#### Remaining Bugs
+- There are no bugs remaining.
+
+### Validator Testing
+- Passed the code through a PEP8 linter and confirmed there are no problems.
+
+![PEP8 Linter](assets/readme/PEP8%20Linter.png)
+
+## Deployment
+This project was deployed using the Code Institute's mock terminal for Heroku with the following steps:
+- Fork or clone this repository.
+- Create a new Heroku app.
+- Set the buildbacks to Pyton and Node JS in that order.
+- Link the Heroku app to the repository.
+- Click on deploy.
 
 ## Design
-### Color Scheme
-The following palette was selected from [My Color Space](https://mycolor.space/)
-
-![Color Palette](assets/images/readme/color-palette.png)
-
-### Typography
-- The Lato family of fonts was chosen from [Google Fonts](https://fonts.google.com) with sans-serif in case it doesn't import.
-
 ### Wireframes
-- [FigmaJam](https://www.figma.com/) was used to create wireframes that will scale up easily for teamwork. 
+- ![Lucid Wireframe](/assets/readme/lucid_wireframe.png) was used to create wireframes that will scale up easily for teamwork. 
 - The site has been designed with an "easy to take in" style focussed on avoiding decision fatigue and information overload. The underlined navigation items tells you where you are.  
 - Each stroke and click is efficient and intentional.
 
-![Design](assets/images/readme/wireframe.png) 
-
 ## Technologies Used
 ### Language
-- HTML, CSS and Javascript was used
+- Python 3 was used
 
 ## Frameworks, Libraries and Programs
 - [Git](https://git-scm.com/) was used for version control
 - [Github](https://github.com/) wa used to save and store files
 - [Lightshot](https://app.prntscr.com/en/index.html) was used for screendumps
 
-## Testing
-### Issues and Bugs
--  The web accessibility evaluation tool showed many tag and contrasting issues which had to be fixed https://wave.webaim.org/report#/https://caylindewey.github.io/project2-v1/. All errors are fixed.
-
-- The reset function was initially triggered from the js function. It was moved to the HTML funtion after a jshint error was found. All errors are fixed.
-
-### Validator Results 
-- The W3C HTML Validator were used and Index.html passed the test  [W3C HTML Validtor](https://validator.w3.org/).
-
-![Page validation result](/assets/images/readme/validator-html-result.png)
-
-- The W3C CSS Validator was used and Style.css passed the test [W3C CSS Validtor](https://jigsaw.w3.org/css-validator/).
-
-![CSS validation result](/assets/images/readme/validator-css-result.png)
-
-### Jshint Testing
-- No errors were found.
-
-![Jshint result](/assets/images/readme/jshintResult.png)
-
 ### Manual Testing
-
 | Test | Expected Functionality | Actual Behavior | Test Result |
 | --- |---                   |---            |---|
 | Random URL Load | Redirect User | Redirection executed with 404 page | Test Passed |
@@ -183,52 +145,12 @@ The following palette was selected from [My Color Space](https://mycolor.space/)
 | Buttons | All buttons responded as expected | Quick response and correct calculation | Test Passed |
 | Fields Input Range | Text and numbers required | Did not respond | Test Failed |
 
-![Error-404](assets/images/readme/error-404.png)
-
-### Wave Testing (Web Accesibility Evaluation Tool)
-- A few tag and contrasting errors were corrected [WAVE](https://wave.webaim.org/) which improved the lighthouse scores.
-
-- Wave Testing Results were initially riddled with minor errors which have now been resolved.
-
-![Wave Result](assets/images/readme/wave-results.png)
-
-### Lighthouse Testing
-#### Results
-- Desktop Results were initially showing a low score on accesibility which have now been resolved.
-
-![Lighthouse Desktop Result](assets/images/readme/lighthouse-desktop-test.png)
-
-- Mobile Results were initially showing a low score on accesibility which have now been resolved.
-
-![Lighthouse Desktop Result](assets/images/readme/lighthouse-mobile-test.png)
-
 ## Deployment and Local Development
-
-### How to Deploy 
-Github was used to deploy this site.  The steps are as follows:
-1. Log into the [Github site](https://github.com/)
-2. Pull up the repository for [Decision Helper](https://github.com/CaylinDewey/project2-v1)
-3. Select the settings link, then the pages link.
-4. In the source section choose 'main' from the dropdown menu.  
-5. Select the 'root' from the drop menu and 'save'.
-6. The URL that is displayed should have your live Github pages site. 
-
-### How to Fork
-1. Log into the [Github site](https://github.com/)
-2. Pull up the repository for [Decision Helper](https://github.com/CaylinDewey/project2-v1)
-3. Use to [fork button](assets/images/readme_github_fork.png) on the top right hand corner 
-
-### How to Clone
-1. Log into the [Github site](https://github.com/)
-2. Click on the burger menu that will open up the repositories you are working on at the bottom.  Select the project you need.
-3. Click on the clone button and select from HTTPS, SSH, or GitHub CLI.  Then copy the link shown.
-4. Open your code editor terminal and change the current work directory to the location you want to use for the cloned directory.
-5. Type in the terminal 'git clone' and paste your link here. 
 
 ## Credits
 ### Code and Media
 - [Am I Responsive](https://ui.dev/amiresponsive) displays the site on a range of devices.
-- [Code Institute Readme Template Tutorial](Code-Institute-Solutions/readme-template) 
+- [Code Institute Readme Template Tutorial](Code-Institute-Solutions/readme-template)
 - [Code Institute Readme from Thomas Tomo](https://github.com/Thomas-Tomo/Lunar-Escape) 
 - [Code Institue Readme from Kera Cudmore](https://github.com/kera-cudmore)
 - [freeCodeCamp Tutorial](https://www.youtube.com) was used for examples and learning.
