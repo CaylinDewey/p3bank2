@@ -13,61 +13,63 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('p3bank2')
 
-print("##########################")
-print("#                        #")
-print("#  WELCOME TO QUICK BANK #")
-print("#                        #")
-print("##########################")
+print("##################################")
+print("#                                #")
+print("#     WELCOME TO QUICK BANK      #")
+print("#                                #")
+print("##################################")
+
 
 # Prompt user for account name
-def account_name_prompt():
-    
+def accNamePrompt():
     while True:
-        account_name = input ("Please enter your account name reference (max. 15 characters): \n").lower()
-        if account_name and account_name.isalnum() and len(account_name) <=15:
+        accName = input("Please enter your account name: \n").lower()
+        if accName and accName.isalnum() and len(accName) <= 15:
             try:
-                worksheet = SHEET.worksheet(account_name)
-                retrieve_old_balance(account_name)
-                return account_name
+                worksheet = SHEET.worksheet(accName)
+                retOldBal(accName)
+                return accName
             except gspread.exceptions.WorksheetNotFound:
-                print(f"The account reference \033[1m{account_name}\033[0m was not found.")
-                create_account_menu(account_name)
-        else:             
-            print("Account name must be alphanumeric, no spaces and a maximum of 15 characters. Please try again.")
+                print(f"The account {accName} was not found.")
+                createAccMenu(accName)
+        else:
+            print("Try again, only alphanumeric and max. 15 characters.")
 
-# Retrieve old balance from existing file - part I of II
-def retrieve_old_balance(account_name):
-    
-    print(f"Attempting to retrieve balance for account: \033[1m{account_name}\033[0m...🏃‍♀️")
+
+# Retrieve old balance from existing file
+def retOldBal(accName):
+
+    print(f"Searching account balance: \033[1m{accName}\033[0m...🏃‍♀️")
     try:
-        worksheet = SHEET.worksheet(account_name)# here it checks if the account_name exists
-        old_balance_amount = calculate_balance(worksheet)# Function below this function
-        print(f"The account has been found, the balance is {old_balance_amount:,.2f} Euros.\n")
-        transaction_amount_prompt(worksheet, old_balance_amount)
+        worksheet = SHEET.worksheet(accName)
+        oldBalAmt = calcBal(worksheet)
+        print(f"The balance is {oldBalAmt:,.2f} Euros.\n")
+        tranAmtPrompt(worksheet, oldBalAmt)
     except gspread.exceptions.WorksheetNotFound:
-        print(f"The account {account_name} was not found.")
-        create_new_account(account_name)
+        print(f"The account {accName} was not found.")
+        createNewAcc(accName)
     except Exception as e:
         print(f"An error occurred: {e}")
 
 
-# Calculate retrieve old balance from existing file - part II of II
-def calculate_balance(worksheet):
-    
+# Calculate retrieve old balance from existing file
+def calcBal(worksheet):
+
     values = worksheet.get_all_values()
 
-    if len(values) <2:
+    if len(values) < 2:
         return 0.00
 
     for row in reversed(values[1:]):
         _, _, _, balance_str = row
         balance = float(balance_str.strip().lower())
         return balance
-    
+
     return 0.00
-        
+
+
 # Create a new account menu
-def create_account_menu(account_name):
+def createAccMenu(accName):
 
     print("Would you like to: ")
     print("1. Create a new account")
@@ -75,51 +77,55 @@ def create_account_menu(account_name):
     choice = input("Enter your choice:  ")
 
     if choice == '1':
-            create_new_account(account_name)
+        createNewAcc(accName)
     elif choice == '2':
-            exit_program_menu()
+        exitProgMenu()
     else:
         print("Invalid choice. Please enter the numbers 1 or 2.")
-        create_account_menu()
+        createAccMenu()
+
 
 # Respond to user choice create a new account
-def create_new_account(account_name):
+def createNewAcc(accName):
 
-    SHEET.add_worksheet(title=account_name, rows="100", cols="7")
-    worksheet = SHEET.worksheet(account_name)
+    SHEET.add_worksheet(title=accName, rows="100", cols="7")
+    worksheet = SHEET.worksheet(accName)
     worksheet.append_row(['Date', 'Description', 'Amount', 'Balance'])
-    old_balance_amount = 0.00
-    print(f"A new account {account_name} has been created. \n")
-    transaction_amount_prompt(worksheet, old_balance_amount)
+    oldBalAmt = 0.00
+    print(f"A new account {accName} has been created. \n")
+    tranAmtPrompt(worksheet, oldBalAmt)
+
 
 # Prompt user for transaction type - part II of II - exit option
-def exit_program_menu():
+def exitProgMenu():
     print("Are you sure you want to exit?")
     print("1. Yes")
     print("2. No")
-    choice = input("Enter your choice in numbers:  ")
+    choice = input("Enter your choice in numbers:  \n")
 
     if choice == '1':
-        print("You selected the exit option. Thank you for using Quick Bank. Return soon! 😀\n")
+        print("Thank you for using Quick Bank. Return soon! 😀\n")
         exit()
     elif choice == '2':
-        account_name_prompt()
+        accNamePrompt()
     else:
         print("Invalid choice. Please enter the numbers 1 or 2.")
-    exit_program_menu()
+        exitProgMenu()
+
 
 # Prompt user for transaction amount
-def transaction_amount_prompt(worksheet, old_balance):
+def tranAmtPrompt(worksheet, oldBal):
 
     try:
-        transaction_amount = float(input("Enter the Euro amount with two decimals e.g. 200.00:  "))
-        transaction_menu(worksheet, old_balance, transaction_amount)
+        transAmt = float(input("Enter transaction amount e.g. 2,200.00:  "))
+        transMenu(worksheet, oldBal, transAmt)
     except ValueError:
         print("Invalid input, please enter a valid number.")
-        return transaction_amount_prompt(worksheet, old_balance)
+        return tranAmtPrompt(worksheet, oldBal)
 
-# Prompt user for transaction type 
-def transaction_menu(worksheet, old_balance, transaction_amount):
+
+# Prompt user for transaction type
+def transMenu(worksheet, oldBal, transAmt):
 
     print("What would you like to do?")
     print("1. Deposit")
@@ -128,45 +134,48 @@ def transaction_menu(worksheet, old_balance, transaction_amount):
     choice = input("Enter your choice with a number (1, 2, or 3):   \n")
 
     if choice == '1':
-        deposit_transaction(worksheet, old_balance, transaction_amount)
+        depTrans(worksheet, oldBal, transAmt)
     elif choice == '2':
-        withdrawal_transaction(worksheet, old_balance, transaction_amount)
+        withTrans(worksheet, oldBal, transAmt)
     elif choice == '3':
-        exit_program_menu()
+        exitProgMenu()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
-        transaction_menu(worksheet, old_balance, transaction_amount)
+        transMenu(worksheet, oldBal, transAmt)
+
 
 # Deposit Transaction  depositTransaction
-def deposit_transaction(worksheet, old_balance, transaction_amount):
-    
-    new_balance = old_balance + transaction_amount
-    print(f"Your deposit transaction was successful. Your new balance is {new_balance:,.2f} Euros. \n")
+def depTrans(worksheet, oldBal, transAmt):
+
+    newBal = oldBal + transAmt
+    print(f"Success! Your new balance is {newBal:,.2f} Euros. \n")
     print("Thank you for using Quick Bank. Return soon! 😀\n")
-    append_worksheet(worksheet, "Deposit", transaction_amount, new_balance)
-    return new_balance
+    appendWrksh(worksheet, "Deposit", transAmt, newBal)
+    return newBal
+
 
 # Withdrawal Transaction
-def withdrawal_transaction(worksheet, old_balance, transaction_amount):
-    
-    if transaction_amount > old_balance:
-        print(f"Your withdrawal amount exceeds the balance {old_balance:,.2f} Euros. Please enter an amount less than your balance.")
-        return transaction_amount_prompt(worksheet, old_balance)
+def withTrans(worksheet, oldBal, transAmt):
+
+    if transAmt > oldBal:
+        print(f"Withdrawal exceeds the balance {oldBal:,.2f} Euros.\n")
+        print(f"Please enter a smaller transaction amount:   ")
+        return tranAmtPrompt(worksheet, oldBal)
     else:
-        new_balance = old_balance - transaction_amount
-        print(f"Your withdrawal has been successful. Your new balance is {new_balance:,.2f} Euros. ")   
-        print("Thank you for using Quick Bank. Return soon! 😀\n")
-        append_worksheet(worksheet, "Withdrawal", transaction_amount, new_balance)
-        return new_balance
+        newBal = oldBal - transAmt
+        print(f"Success! Your new balance is {newBal:,.2f} Euros. \n")
+        appendWrksh(worksheet, "Withdrawal",
+                    transAmt, newBal)
+        return newBal
+
 
 # Append transactions to worksheet
-def append_worksheet(worksheet, transaction_type, transaction_amount, new_balance):
+def appendWrksh(worksheet, transType, transAmt, newBal):
 
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    worksheet.append_row([date, transaction_type, transaction_amount, new_balance])
-    exit_program_menu()
-
+    worksheet.append_row([date, transType, transAmt, newBal])
+    exitProgMenu()
 
 
 # Call Functions (not nested)
-account_name_prompt()
+accNamePrompt()
