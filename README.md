@@ -1,10 +1,11 @@
 
+
 # Quick Bank
-Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  
+Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with a bank account before. It is ideal for anyone wanting to data capture banking details quickly and efficiently.
 
 Users can create accounts, make withdrawals, and deposits. The data is stored in a Google spreadsheet that is easy to access and read.  Balances are available before and after the transactions.  
 
-The flow and input was designed with the user's comfort in mind. Minimal keystrokes and mouse use was a priority.  The terminal is easy to read, navigate and relays information in a simple way.  The user is prompted for information, making a user manual unnecessary.
+The flow and input was designed with the user's comfort in mind. Minimal keystrokes and mouse use was a priority.  The terminal is easy to read, navigate and relays information in a simple way.  The user is prompted at every step, making for easy navigation.  Bulk data capture is easily accomodated with only the keyboard use.
 
 [Click on this hyperlink for a live version of the project.](https://p3-bank2-bedbb06cdecb.herokuapp.com/).
 
@@ -16,7 +17,6 @@ The flow and input was designed with the user's comfort in mind. Minimal keystro
 
 # Table of Contents
 ## [How To Transact](#how-to-transact-1)
-## [Logic Flowchart](#logic-flowchart-1)
 ## [User Experience-(UX)](#user-experience-ux-1)
 ### [User Stories](#user-stories-1)
 #### [First-time Visitor Goals](#first-time-visitor-goals-1)
@@ -34,19 +34,22 @@ The flow and input was designed with the user's comfort in mind. Minimal keystro
 #### [Deposit](#deposit-1)
 #### [Exit on End of Transaction](#exit-on-end-of-transaction-1)
 #### [Date and Time Automatically Captured](#date-and-time-automatically-captured-1)
-### [Features Left To Implement](#features-left-to-implement-1)
+### [Future Features](#future-features-1)
 ## [Data Model](#data-model-1)
-## [Testing](#testing-1)
 ## [Design](#design-1)
 ## [Technologies Used](#technologies-used-1)
 ### [Language](#language-1)
 ## [Frameworks, Libraries and Programs](#frameworks-libraries-and-programs-1)
+## [Testing](#testing-1)
+### [Validator Testing](#validator-testing-1)
+### [Manual Testing](#manual-testing-1)
 ### [Bugs](#bugs-1)
 #### [Solved Bugs](#solved-bugs-1)
 #### [Remaining Bugs](#remaining-bugs-1)
-### [Validator Testing](#validator-testing-1)
-## [Manual Testing](#manual-testing-1)
-## [Deployment](#deployment-1)
+## [Deployment and Local Development](#deployment-and-local-development-1)
+### [Deploying to Heroku](#deploying-to-heroku-1)
+### [Forking with GitHub Repository](#forking-with-github-repository)
+### [Local Clone](#local-clone-1)
 ## [Credits](#credits-1)
 ### [Code and Media](#code-and-media-1)
 ### [Content](#content-1)
@@ -54,23 +57,23 @@ The flow and input was designed with the user's comfort in mind. Minimal keystro
 
 # Quick Bank
 ## How To Transact
-You will be prompted to input an account number. If the account number is recognised as one of the current Google worksheets, you will be told what the balance is on the account. If the account number is not found, you will be prompted to create an account number or exit. 
+The logic flowchart below gives a diagramatic layout of how to transact.  Initially you will be prompted to input an account name. If the account name is recognised as one of the current Google worksheets, you will be told what the balance is on the account. If the account name is not found, you will be prompted to create an account name or exit. 
 
-If you did not exit, you will then be prompted to enter a transaction amount. After this you need to select a number from the menu for withdrawal or deposit. If you ask for a withdrawal amount bigger than your balance, you will received a notification of this and taken back to the account prompt menu.  If your withdrawal amount is smaller than your balance, you will be notified that the transaction was successful with the new balance.
+If you did not exit, you will then be prompted to enter a transaction amount. After this you need to select a number from the menu for withdrawal, deposit or exit. A withdrawal amount that is bigger than your balance, will prompt a notification and you will be taken back to the account prompt menu.  
 
-The deposit transaction will be processed and a new balance provided at the end. The program closes with another prompt to exit. If you select not to exit you will be taken back to the account name prompt.
+If your withdrawal amount is smaller than your balance, you will be notified that the transaction was successful with the new balance.  The deposit transaction will be processed and a new balance provided at the end of the transaction. The program closes with another prompt to exit. 
 
-## Logic Flowchart
-![Logic Flowchart](assets/readme/Logic%20Wireframe.png)
+If you select no on the exit menu, you will be taken back to the account name prompt.  The exit option is conveniently placed at the beginning, middle and end. 
 
 ## User Experience (UX)
 - Quick Bank provides a quick and easy way to keep track of your banking accounts. 
-- Bulk data capture is possible if you input the account name with your left-hand. Your right-hand can then hover over the numpad for the rest of the selections. This makes for <b>as little weight-shifting and keystrokes as possible</b>.
-- You are prompted with simple menu choices that allow you to transact quickly. 
+- Bulk data capture is possible if you input the account name with your left-hand. Your right-hand can then hover over the numpad for the rest of the selections. This makes for 
+ <b>fewer weight-shifting moments and fewer keystrokes</b>.
+- You are prompted with simple menu choices (no more than 3 at a time) and you can enter in the number - so ensuring fewer errors and keystrokes.
 - The layout is clear and efficient so that you can navigate through the program landscape easily and quickly.  
-- You are prompted to exit at a few points in case you need to come back later or you changed your mind. 
+- You are prompted to exit at three crucial points for convenience - to either correct information given or to exit. 
 - The logic is forgiving and predictive hopefully supporting your decision making as it unfolds.
-- Very little room is given for user input error. The user is prompted to try again if invalid input is given - no fuss and efficiently. 
+- The user is <b> set up for success</b>.  Very little room is given for user input error. The user is prompted to try again if invalid input is given - no fuss and efficiently. 
 
 ### User Stories
 #### First-time Visitor Goals
@@ -78,19 +81,19 @@ The deposit transaction will be processed and a new balance provided at the end.
 - I want to be able to change my mind and start again quickly.
 - I want to feel comfortable when there is not sufficient funds for a withdrawal. 
 - I want to type with as few keystrokes as possible. 
-- I would like my right-hand to hover over the numpad and the mouse - I don't want to have it return to the keyboard and so having to shift my weight.
-- I don't want to have to ask an update, for example, like if you found my account or a balance. It should be automatically given.
+- I would like my right-hand to hover over the numpad - I don't want to have it return to the keyboard or mouse and so having to shift my weight. I can do that if my accountnames can be typed with my left-hand. Three letters and three digits are recommended for this.
+- I don't want to have to ask for an update if you found my account or a balance. It should be automatically given to me.
 
 #### Returning User Goals
 - I don't want to have to remember which case I used for my accountname. 
-- I don't want to be limited with numbers for an accountname. I want to be able to input an account name that is easy to remember.
+- I don't want to be limited with numbers only or letters only - for an accountname. I want to be able to input an account name that is easy to remember.
 - If I typed in the account name incorrectly, I should be asked before an account is created and I should find my way back to the account name prompt without fuss.
-- I like to select the numbers, it fast and easy.
+- I want to be able to exit quickly if I cannot continue.
 
 #### Frequent User Goals
 - When I return I want to be able to transact quickly and see what the new balance is. 
 - I want the menu to be predictable and easy to navigate.
-- I want a forgiving data input standard that won't be rigid about the data I give by sending me directly back to the prompt menu.
+- I want a forgiving data input standard that will direct me to the prompt to try again automatically.
 
 ## Features
 - The flow was created for a simple and efficient user experience that shows consideration for the user. 
@@ -112,7 +115,7 @@ The deposit transaction will be processed and a new balance provided at the end.
 
 #### Exit Prompt
 - The exit prompt is provided at regular intervals to ensure that the user is given the opportunity to correct input or exit.
-- If you select that you do not want to exit, you will be taken to the account name prompt.
+- If you select that you do not want to exit, you will be taken back to the accountname prompt.
 
 ![Exit Prompt](assets/readme/account_name_second_try.png)
 
@@ -125,14 +128,15 @@ The deposit transaction will be processed and a new balance provided at the end.
 - Where possible a numerical selection prompt has been used, avoiding extra unnecessary shifting of weight or changing of hands - it is assumed that you will have your one hand over the numpad anyway since you are doing financial work.
  
 #### Transaction Amount Prompt
-- The transaction decimal amount is automatically rounded to zero enabling the user to type in decimals if there are any and if there are not, it is assumed it is zero.
-- Where possible the menu requires a numeric selection, cutting down on mouse use so avoiding shifting of the weight.  This is especially welcome when there is bulk data capturing required.
+- The transaction decimal amount is automatically rounded to zero enabling the user to type in decimals.  If no decimals are entered, it is assumed it is zero.  If decimals are entered, it is taken into the calculations automatically.
+- Where possible the menu requires a numeric selection, cutting down on keystrokes.  This is especially welcome when there is bulk data capturing required.
 
 ![Transaction Amount](assets/readme/transaction_amount.png)
 
 #### Withdrawal 
 - The system will check if the funds you are trying to withdraw is less than your balance (from the new account 0.00 or the found account).
-- If the withdrawal exceeds the balance, you will get an error message (displayed above) and you will be taken to the transaction amount prompt where you can enter a smaller amount or the same amount.  From there you can also choose to deposit instead of withdraw - in case you selected the wrong transaction.
+- If the withdrawal exceeds the balance, you will get an error message (displayed above) and you will be taken to the transaction amount prompt where you can enter a smaller amount or the same amount.  
+- From there you can also choose to deposit instead of withdraw (you may have simply selected the wrong transaction).  
 - Once the withdrawal is successful a message is displayed showing the new balance.
 
 #### Deposit
@@ -143,40 +147,34 @@ The deposit transaction will be processed and a new balance provided at the end.
 
 #### Date and Time Automatically Captured
 - The transaction date and time is automatically captured in the data worksheet to save the user effort. 
-- This also gives the information more integrity for security reasons.
+- This timestamp also serves as a reference for multiple transactions on one day.
+- It also gives the information more integrity for security reasons.
 
 ![Date and Time Automatically Captured](assets/readme/google_account.png)
 
-### Features Left to Implement
- - <b>Future-proof</b> the programme by planning for a maximum amount of accounts and a new Google file being opened for <b>scalability</b> of the operation.
- - More color could be used for the messages to the user to enhance the experience positively.
- - A little explanation could be given about the account name being converted to lower case automatically to avoid user recording incorrect details in personal records.
- - Enhance features by providing for an interest earned calculation.  This would require a policy with scheduled interest rates that can then be compounded to reflect the correct interest earned for the user since the last transaction.
- - A feature charging the user a transaction fee for every transaction.
- - A feature sending a statement to the user.
- - A CSV file which can be downloaded by the user.
- - A query feature could be implemented giving users the opportunity to include other transactions.
- - Closing the account could also be another feature included (prompting the user for a contact opportunity which could be used to dissuade the user to change services).
- - Overdraft facilities would need the balances to be printed in green and red or with brackets to show credit.
+### Future Features
+ - A secure entry system with authenticated passwords.
+ - A search list on current names per authenticated user entered. 
+ - <b>Future-proof</b> the programme by planning for a maximum amount of accounts for the Google worksheet.
+ - <b>Scalability</b> is important, gear the programme to automatically add another Google account if needed.
+ - Add an compound interest earned calculation and transaction fee charged feature.
+ - Add a statement emailed to user and a CSV dowlload file and a interface with accounting softawre feature.
+ - A query and overdraft feature.
  - International facilities could also be introduced further down the line with live linking to currency exchange.
 
 ## Data Model
-Google Sheets was used to store account information for the application. Each user accountname generated a new worksheet with it's own date, transaction type, amount and balance column. The date and time was automatically entered for security, data integrity and efficiency reasons. The cred.json file was listed as one of the gitignore files.
-
-## Testing
-The project has been manually tested in the following way:
-- The code was passed through a PEP8 linter and no error status is confirmed.
-- Given invalid inputs: strings when numbers are expected, out of bounds inputs, same inputs twice.
-- Tested in my local terminal and Code Institute Heroku terminal.
+Google Sheets was used to store account information for the application. Each user account name generated a new worksheet with it's own date and time, transaction type, amount and balance column. The date and time was automatically entered for security, <b>data integrity</b> and efficiency reasons. The cred.json file was listed as one of the gitignore files.
 
 ## Design
 - A flowchart was created in [Balsamiq Wireframes](https://balsamiq.com/wireframes).
 - The site has been designed with an "easy to take in" style focussed on avoiding decision fatigue and information overload. The underlined navigation items tells you where you are.  
 - Each stroke and click is efficient and intentional.
 
+![Design Workflow](assets/readme/logic_wireframe.png)
+
 ## Technologies Used
 ### Language
-- Python 3 was used
+Python 3 was used.
 
 ## Frameworks, Libraries and Programs
 - [Git](https://git-scm.com/) was used for version control.
@@ -185,53 +183,67 @@ The project has been manually tested in the following way:
 - [Heroku](https://id.heroku.com/) was used to deploy the project.
 - [CI Python Linter](https://pep8ci.herokuapp.com/) was used to check the code.
 
-### Bugs
-#### Solved Bugs
-- There were many parameter issues regarding the account name but this was solved with the help of Code Institute student support and my mentor. 
-- There were also issues with the balance of the old accounts and the balance on the new accounts. Atomic, modular code helped me to separate the two and deal with them individually to ensure accuracy.
-- Initially the wrong functions were being called and it was difficult to see where the code needed to be adjusted.  By sequencing the code from top to bottom as the user would, I was able to easily find problems and fix code. I also called the next function in the current one to avoid confusion and to adhere to the correct flow. It simplified the process.
-- The initial gspead import gave several issues which were solved by updating imports.
-- The creds.json file prompted a critical error which was solved using Google. 
-
-#### Remaining Bugs
-- There are no bugs remaining.
-
+## Testing
 ### Validator Testing
-- Passed the code through a PEP8 linter and confirmed that there are no problems.
+The project passed the code through a PEP8 linter with no problems.
 
-![PEP8 Linter](assets/readme/PEP8%20Linter.png)
+![PEP8 Linter](assets/readme/pep8_linter.png)
 
 ## Manual Testing
-| Test | Expected Functionality | Actual Behavior | Test Result |
-| --- |---                   |---            |---|
-| Account Name Space Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Account Name Blanc Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Account Name other characters (not alphnumeric) Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Account Name upper case only | Convert to lowercase | Convert to lower case | Test Passed |
-| Create New Account Space Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Create New Account Name Blanc Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Create New Account Name other characters (not alphnumeric) Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Transaction Amount no decimals given | Round with no decimals | Round with no decimals | Test Passed |
-| Transaction Amount with decimals | Include decimals | Include Decimals | Test Passed |
-| Transaction Amount other characters | Prompt for valid input | Prompt for valid input | Test Passed |
-| Transaction Amount Enter | Prompt for valid input | Prompt for valid input | Test Passed |
-| Transaction Amount Spacebar | Prompt for valid input | Prompt for valid input | Test Passed |
-| Withdrawal more than Balance | Balance with caution message and redirect User | User redirected to transaction amount | Test Passed |
+| Test | Expected Behavior | Test Result |
+| --- |--- |--- |
+| Account Name input empty | Error message displayed and user is asked to try again | Passed |
+| Account Name input non-alphanumeric characters | Error message displayed and user is asked to try again | Passed |
+| Account Name input uppercase and lowercase |  Automatically convert to lowercase | Passed |
+| Account Name input Enter key only | Error message displayed and user is asked to try again | Passed |
+| Account Name input Spacebar key only | Error message displayed and user is asked to try again | Passed |
+| Transaction Amount empty | Error message displayed and user is asked to try again | Passed |
+| Transaction Amount non-numeric characters | Error message displayed and user is asked to try again | Passed |
+| Transaction Amount no decimals given | Amount is displayed with no decimals | Passed |
+| Transaction Amount with decimals | Amount is displayed with the given decimals | Passed |
+| Transaction Amount Enter key only | Error message displayed and user is asked to try again | Passed |
+| Transaction Amount Spacebar key only | Error message displayed and user is asked to try again | Passed |
+| Withdrawal more than Balance | Error message displayed and user is asked to try again | Passed |
 
-## Deployment
+## Bugs
+### Solved Bugs
+- There were many parameter issues regarding the account name intially.  These are all fixed. 
+- The sequencing of creating a new account had to be adjusted to ensure that the correct balance was given if the account was found. This was fixed by using nested functions and atomic style coding.
+- The initial gspead import gave several issues, which were solved by updating imported library versions.
+
+### Remaining Bugs
+There are no bugs remaining.
+
+## Deployment and Local Development
+### Deploying to Heroku
 This project was deployed using the Code Institute's mock terminal for Heroku with the following steps:
-- Log in to Heroku or create a new account
-- On the main page click "New" and select "Create new app"
-- Choose your unique app name and select your region
-- Click "Create app"
-- On the next page find "settings" and locate "Config Vars"
-- Click "Reveal Config Vars" and add "PORT" key and value "8000", click "Add"
-- Scroll down, locate "Buildpack" and click "Add", select "Python"
-- Repeat step 7. only this time add "Node.js", make sure "Python" is first
-- Scroll to the top and select "Deploy" tab
-- Select GitHub as deployment method and search for your repository and link them together
-- Scroll down and select either "Enable Automatic Deploys" or "Manual Deploy"
-- View deployed site
+1. Log in to Heroku or create a new account.
+2. On the main page click 'New' and select 'Create new app'.
+3. Choose your unique app name and select your region.
+4. Click 'Create app'.
+5. On the next page find 'settings' and locate 'Config Vars'.
+6. Click 'Reveal Config Vars' and add 'PORT' key and value '8000', click 'Add'.
+7. Scroll down, locate 'Buildpack' and click 'Add', select 'Python'.
+8. Repeat step 7. only this time add 'Node.js', make sure 'Python' is first.
+9. Scroll to the top and select 'Deploy' tab.
+10. Select GitHub as deployment method and search for your repository and link them together.
+11. Scroll down and select either 'Enable Automatic Deploys' or 'Manual Deploy'.
+12. View deployed site.
+
+### Forking with GitHub Repository
+Forking the repository enables us to make a copy of the original repository to change and view without affecting the original repository.
+1. Log in to the Github repository.
+2. Select the 'Fork' button which is found at the top under the main menu.
+3. You now have a copy of the original repository.
+
+### Local Clone
+1. Log into the GitHub repository.
+2. Select the 'Clone or download' button.
+3. Click on the 'code' button, select clone with HTTPS, SSH or GitHub CLI and copy the link.
+4. Open Git Bash.
+5. Change the current working directory to the desired one.
+6. Type 'git clone' and then past the URL copied in step 3.
+7. Press the 'Enter' key to create your local clone.  
 
 ## Credits
 ### Code and Media
@@ -244,7 +256,7 @@ This project was deployed using the Code Institute's mock terminal for Heroku wi
 - [Thomas Tomo Readme File](https://github.com/Thomas-Tomo/hangman/blob/main/README.md#how-to-play-1) provided by Mitko Bachvarov.
 
 ### Content
-- All content was written by Caylin Dewey
+All content was written by Caylin Dewey
 
 ## Acknowledgements
 - My mentor,<b> Mitko Bachvarov</b> provided helpful feedback and advice.
