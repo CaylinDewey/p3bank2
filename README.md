@@ -1,11 +1,11 @@
 
 
 # Quick Bank
-Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with an account before. It is ideal for quick, efficient banking needs, especially for bulk accounts. This simple way of account keeping, is designed with the <b>minimal viable product</b> in mind that can easily be <b>scaled up</b> and future proofed on this programme foundation.
+Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with an account before. It is ideal for quick, efficient banking needs, especially for bulk accounts. This simple way of account keeping, is designed with the <b>minimal viable product</b> in mind that can easily be <b>scaled up</b> and future proofed on this programme's foundation.
 
 The data is stored in a Google spreadsheet that is easy to access and read. Balances are communicated automatically before and after the transactions.  
 
-The flow and input is designed with the user's comfort in mind. Minimal keystrokes and mouse use, is a priority.  The terminal is easy to read and navigate.  Information is relayed in a concise way.  The user is prompted at every step, making for easy navigation.  
+The flow and input is designed with the user's comfort in mind. Minimal keystrokes and mouse use, is a priority.  Information is relayed in a concise way.  The user is prompted at every step, making for easy navigation.  
 
 [Click on this hyperlink for a live version of the project.](https://p3-bank2-bedbb06cdecb.herokuapp.com/).
 
@@ -16,8 +16,8 @@ The flow and input is designed with the user's comfort in mind. Minimal keystrok
 # Table of Contents
 ## [Navigation](#navigation-1)
 ### [How to input the Account Name](#how-to-input-the-account-name-1)
-### [How to input the Transaction Amount](#how-to-input-the-transaction-amount-1)
 ### [How to use the Numeric Menu](#how-to-use-the-numeric-menu-1)
+### [How to input the Transaction Amount](#how-to-input-the-transaction-amount-1)
 ### [How to Exit](#how-to-exit-1)
 ### [How to Credit or Debit the Account](#how-to-credit-or-debit-the-account-1)
 ### [How to Receive a Balance](#how-to-receive-a-balance-1)
@@ -65,22 +65,24 @@ The [logic flowchart](#design-1) gives a diagramatic layout of the programme. Th
 
 ### How to input the Account Name
 - The account name can be created by the user, making them easy to re-use. 
-- Only alphanumerics can be used with a maximum of 15 characters.  
-- The user is prompted if the account name is invalid and an example given of the correct account name format.
+- Only alphanumerics can be used with a maximum of 15 characters for example, dave042.  
+- The user is prompted if the account name is invalid with an opportunity to try again.
 - The user is asked before an account name is created to prevent unnecessary duplications.
-- The account name is automatically converted to lower case to prevent frustrating case sensitive security features.  This can come at a later stage when searching functions are available.
+- The account name is automatically converted to lower case to prevent frustrating case sensitive security features which can come at a later stage when searching functions are available.
 
-### How to input the Transaction Amount
-- The transaction amount can only be entered using numerics.  
-- If the user uses decimal amounts, it is reflected. If not, the decimals are assumed to be nil.
-- A period is used to indicate decimals (this may need to be adjusted in countries like the Netherlands where commas are used to indicate decimals.  Since the programe is written in English, it is presumed that users will use a period to indicate decimals).
+![How to Input the Account Name](assets/readme/invalid_accountname.png)
 
 ### How to use the Numeric Menu
 - The user needs to select and input a number that relates to the options given.
-- An invalid input will give the user another opportunity to try again, for example to type in the key '2' for the second option on the menu.
+- An invalid input will give the user another opportunity to try again, for example to type in the key '2' for the second option on the [menu](#numerical-menu-1).
+
+### How to input the Transaction Amount
+- The [transaction amount](#transaction-amount-prompt-1) can only be entered using numerics.  
+- If the user uses decimal amounts, it is reflected. If not, the decimals are assumed to be nil.
+- A period is used to indicate decimals (this may need to be adjusted in countries like the Netherlands where commas are used to indicate decimals.  Since the programe is written in English, it is presumed that users will use a period to indicate decimals).
 
 ### How to Exit
-- The user will be prompted at regular intervals on the menu for an exit option.  If exit is selected, another prompt will appear on which the user can then select to go out of the programme or not.
+- The user will be prompted at regular intervals on the menu for an [exit](#exit-on-end-of-transaction-1) option.  If exit is selected, another prompt will appear on which the user can then select to go out of the programme or not.
 - If the user selects not to go out of the programme, the account name input prompt appears.
 
 ### How to Credit or Debit the Account
@@ -154,7 +156,7 @@ The [logic flowchart](#design-1) gives a diagramatic layout of the programme. Th
 ![Create New Account Prompt](assets/readme/create_new_account.png)
 
 #### Numerical Menu
-- Where possible a numerical selection prompt has been used, it is assumed that one hand hovers over the numpad anyway for financial work.
+- Where possible a numerical selection prompt has been used, it is assumed that one hand hovers over the numpad anyway for financial work - so no shifting of weight is needed.
 
 #### Transaction Amount Prompt
 - The transaction decimal amount is automatically rounded to zero enabling the user to type in decimals.  If no decimals are entered, it is assumed it is zero.  If decimals are entered, it is taken into the calculations automatically.
