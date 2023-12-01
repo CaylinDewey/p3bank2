@@ -33,7 +33,7 @@ def accNamePrompt():
                 print(f"The account {accName} was not found.")
                 createAccMenu(accName)
         else:
-            print("Try again, only alphanumeric and max. 15 characters.")
+             print("Try again, only alphanumeric and max. 15 characters.")
 
 
 # Retrieve old balance from existing file

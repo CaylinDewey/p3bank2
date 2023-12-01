@@ -1,22 +1,26 @@
 
 
 # Quick Bank
-Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with a bank account before. It is ideal for anyone wanting to data capture banking details quickly and efficiently.
+Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with an account before. It is ideal for quick, efficient banking needs, especially for bulk accounts. This simple way of account keeping, is designed with the <b>minimal viable product</b> in mind that can easily be <b>scaled up</b> and future proofed on this programme foundation.
 
-Users can create accounts, make withdrawals, and deposits. The data is stored in a Google spreadsheet that is easy to access and read.  Balances are available before and after the transactions.  
+The data is stored in a Google spreadsheet that is easy to access and read. Balances are communicated automatically before and after the transactions.  
 
-The flow and input was designed with the user's comfort in mind. Minimal keystrokes and mouse use was a priority.  The terminal is easy to read, navigate and relays information in a simple way.  The user is prompted at every step, making for easy navigation.  Bulk data capture is easily accomodated with only the keyboard use.
+The flow and input is designed with the user's comfort in mind. Minimal keystrokes and mouse use, is a priority.  The terminal is easy to read and navigate.  Information is relayed in a concise way.  The user is prompted at every step, making for easy navigation.  
 
 [Click on this hyperlink for a live version of the project.](https://p3-bank2-bedbb06cdecb.herokuapp.com/).
 
 ![Responsive](assets/readme/am_I_responsive.png)
 
-
-
 - - -
 
 # Table of Contents
-## [How To Transact](#how-to-transact-1)
+## [Navigation](#navigation-1)
+### [How to input the Account Name](#how-to-input-the-account-name-1)
+### [How to input the Transaction Amount](#how-to-input-the-transaction-amount-1)
+### [How to use the Numeric Menu](#how-to-use-the-numeric-menu-1)
+### [How to Exit](#how-to-exit-1)
+### [How to Credit or Debit the Account](#how-to-credit-or-debit-the-account-1)
+### [How to Receive a Balance](#how-to-receive-a-balance-1)
 ## [User Experience-(UX)](#user-experience-ux-1)
 ### [User Stories](#user-stories-1)
 #### [First-time Visitor Goals](#first-time-visitor-goals-1)
@@ -56,94 +60,119 @@ The flow and input was designed with the user's comfort in mind. Minimal keystro
 ## [Acknowledgements](#acknowledgements-1)
 
 # Quick Bank
-## How To Transact
-The logic flowchart below gives a diagramatic layout of how to transact.  Initially you will be prompted to input an account name. If the account name is recognised as one of the current Google worksheets, you will be told what the balance is on the account. If the account name is not found, you will be prompted to create an account name or exit. 
+## Navigation 
+The [logic flowchart](#design-1) gives a diagramatic layout of the programme. The user is guided by intuitive prompts from the programme from beginning to end.  
 
-If you did not exit, you will then be prompted to enter a transaction amount. After this you need to select a number from the menu for withdrawal, deposit or exit. A withdrawal amount that is bigger than your balance, will prompt a notification and you will be taken back to the account prompt menu.  
+### How to input the Account Name
+- The account name can be created by the user, making them easy to re-use. 
+- Only alphanumerics can be used with a maximum of 15 characters.  
+- The user is prompted if the account name is invalid and an example given of the correct account name format.
+- The user is asked before an account name is created to prevent unnecessary duplications.
+- The account name is automatically converted to lower case to prevent frustrating case sensitive security features.  This can come at a later stage when searching functions are available.
 
-If your withdrawal amount is smaller than your balance, you will be notified that the transaction was successful with the new balance.  The deposit transaction will be processed and a new balance provided at the end of the transaction. The program closes with another prompt to exit. 
+### How to input the Transaction Amount
+- The transaction amount can only be entered using numerics.  
+- If the user uses decimal amounts, it is reflected. If not, the decimals are assumed to be nil.
+- A period is used to indicate decimals (this may need to be adjusted in countries like the Netherlands where commas are used to indicate decimals.  Since the programe is written in English, it is presumed that users will use a period to indicate decimals).
 
-If you select no on the exit menu, you will be taken back to the account name prompt.  The exit option is conveniently placed at the beginning, middle and end. 
+### How to use the Numeric Menu
+- The user needs to select and input a number that relates to the options given.
+- An invalid input will give the user another opportunity to try again, for example to type in the key '2' for the second option on the menu.
+
+### How to Exit
+- The user will be prompted at regular intervals on the menu for an exit option.  If exit is selected, another prompt will appear on which the user can then select to go out of the programme or not.
+- If the user selects not to go out of the programme, the account name input prompt appears.
+
+### How to Credit or Debit the Account
+- Withdrawals can be used for any debits, which will reduce the balance.
+- Deposits can be used for any credits, which will increase the balance.
+
+### How to Receive a Balance
+- The user will be given a balance as soon as the account name is given and after a succesful transaction.
 
 ## User Experience (UX)
-- Quick Bank provides a quick and easy way to keep track of your banking accounts. 
-- Bulk data capture is possible if you input the account name with your left-hand. Your right-hand can then hover over the numpad for the rest of the selections. This makes for 
- <b>fewer weight-shifting moments and fewer keystrokes</b>.
-- You are prompted with simple menu choices (no more than 3 at a time) and you can enter in the number - so ensuring fewer errors and keystrokes.
-- The layout is clear and efficient so that you can navigate through the program landscape easily and quickly.  
-- You are prompted to exit at three crucial points for convenience - to either correct information given or to exit. 
-- The logic is forgiving and predictive hopefully supporting your decision making as it unfolds.
-- The user is <b> set up for success</b>.  Very little room is given for user input error. The user is prompted to try again if invalid input is given - no fuss and efficiently. 
+- I can keep track of my banking accounts in a quick and easy way with a lean <b>minimal viable product</b> approach.  
+- I can do bulk data capture mainly using the keyboard with <b>fewer weight-shifting moments and fewer keystrokes</b>. 
+- I am prompted with simple menu choices (no more than 3 at a time).
+- The menu choices requires a number only preventing finger errors. 
+- The layout is clear and well spaced so that I can navigate through the program landscape easily and quickly.  
+- I can use the basic withdrawal and deposit options for any debits and credits on the account.
+- I am prompted to exit at three crucial points for convenience - to either correct information input or to exit. 
+- The flow is forgiving and predictive, supporting my decision making, as it unfolds.
+- I am <b> set up for success</b>.  If my input is incorrect I am given another opportunity with clear instructions.
+- The withdrawal amount that exceeds the balance is clearly communicated and a retry offered. I am then given the opportunity to deposit or correct the amount. There are no embarrassing exits which would require me to log in again.
 
 ### User Stories
 #### First-time Visitor Goals
-- As a first-time visitor, I want to understand what is required from me at a glance.
-- I want to be able to change my mind and start again quickly.
-- I want to feel comfortable when there is not sufficient funds for a withdrawal. 
-- I want to type with as few keystrokes as possible. 
-- I would like my right-hand to hover over the numpad - I don't want to have it return to the keyboard or mouse and so having to shift my weight. I can do that if my accountnames can be typed with my left-hand. Three letters and three digits are recommended for this.
-- I don't want to have to ask for an update if you found my account or a balance. It should be automatically given to me.
+- As a first-time visitor, I understand what is required from me with short, succinct instructions.
+- I am able to change my mind and start again quickly.
+- I feel comfortable when there is not sufficient funds for a withdrawal and I am prompted to try again. 
+- If I do bulk data capturing my right-hand can hover over the numpad.  I don't want to have it return to the keyboard or mouse. I can do that if my accountnames is typed with my left-hand. Three letters and three digits for account names make this easy for example, dave042 and fred007.
+- My account balance is given to me automatically I don't have to request it.
 
 #### Returning User Goals
 - I don't want to have to remember which case I used for my accountname. 
-- I don't want to be limited with numbers only or letters only - for an accountname. I want to be able to input an account name that is easy to remember.
-- If I typed in the account name incorrectly, I should be asked before an account is created and I should find my way back to the account name prompt without fuss.
-- I want to be able to exit quickly if I cannot continue.
+- The account names must be easy to access. I don't want to be limited with numbers only or letters only.
+- I should be asked <b>before</b> an account is created in case I made a finger error. 
+- I can exit quickly if I am interrupted, since this is probably sensitive information that I cannot leave up on my screen for others to see. Three exit points are available at regular intervals for this. 
+- Once the software is <b>scaled up</b>, this basic structure will provide a good basic plaform to continue the design on. 
+- The user is then in a predicatable environment that makes the software easy to use.
 
 #### Frequent User Goals
-- When I return I want to be able to transact quickly and see what the new balance is. 
-- I want the menu to be predictable and easy to navigate.
-- I want a forgiving data input standard that will direct me to the prompt to try again automatically.
+- When I return I can transact quickly and see what the new balance is. 
+- The menu to be predictable and easy to navigate.
+- I want a <b>forgiving data input standard</b> that will direct me to a prompt to try again automatically.
 
 ## Features
-- The flow was created for a simple and efficient user experience that shows consideration for the user. 
-- Minimal keystrokes was taken into consideration with the design of the menus and flow.
-- It was also a consideration to make left-hand account naming possible leaving the right-hand available to hover over the numpad and ready for mouse use.
+- The flow is created for an efficient and <b>intuitive</b> user experience. 
+- Bulk data capture is <b>quick</b> and easy.
+- Numeric menu selection items leave less room for finger error.
 
 ### Existing Features
 #### Intro Screen
 - A big welcome message is displayed to make the user feel welcome and at ease.
+- A basic color scheme and evenly spaced instructions makes for a tranquil and calm experience. 
 ![Intro Screen](assets/readme/create_new_account.png)
 
 #### Account Name Prompt
 - The accountname is converted to lowercase automatically avoiding annoying the user when the accountname is not found due to case sensitivity.
 - Account names can be typed with a left-hand, leaving the right-hand open to hover over the numpad and mouse. 
-- Bulk data capturing is easy as you are prompted if the account name was not found, before you inadvertantly create an account that already exists.
-- The accountname can accomodate alphanumeric keys allowing you to use Identification numbers, or fullnames or unique names that are easy-to-reference.  
-- If you inadvertantly type in anything but the alphanumeric characters, you will be prompted to try again (this includes hitting enter with no input, a space, and other characters like "%$#@!").
-- The account name is displayed in bold, so that you can see what you actually typed. 
+- If the account name is not found, the user is prompted before inadvertantly creating an account that already exists.
+- The accountname can accomodate alphanumeric keys allowing the user to use Identification numbers, or fullnames or unique names that are easy-to-reference.  
+- If the user inadvertantly types anything but the alphanumeric characters, another opportunity to try again is prompted (this includes hitting enter with no input, a space, and other characters like "%$#@!").
+- The account name is displayed in bold, so that the user can see what is typed. 
 
 #### Exit Prompt
 - The exit prompt is provided at regular intervals to ensure that the user is given the opportunity to correct input or exit.
-- If you select that you do not want to exit, you will be taken back to the accountname prompt.
+- If the user selects 'no' to exit, the accountname prompt appears.
 
 ![Exit Prompt](assets/readme/account_name_second_try.png)
 
 #### Create New Account
-- The input is forgiving - you are prompted before creating a new account in case you made a typo.
+- The input is forgiving - prompts give another input opportunity automatically.
 
 ![Create New Account Prompt](assets/readme/create_new_account.png)
 
 #### Numerical Menu
-- Where possible a numerical selection prompt has been used, avoiding extra unnecessary shifting of weight or changing of hands - it is assumed that you will have your one hand over the numpad anyway since you are doing financial work.
- 
+- Where possible a numerical selection prompt has been used, it is assumed that one hand hovers over the numpad anyway for financial work.
+
 #### Transaction Amount Prompt
 - The transaction decimal amount is automatically rounded to zero enabling the user to type in decimals.  If no decimals are entered, it is assumed it is zero.  If decimals are entered, it is taken into the calculations automatically.
-- Where possible the menu requires a numeric selection, cutting down on keystrokes.  This is especially welcome when there is bulk data capturing required.
+- Where possible the menu requires a numeric selection, this is especially useful for quick bulk data capturing.
 
 ![Transaction Amount](assets/readme/transaction_amount.png)
 
 #### Withdrawal 
-- The system will check if the funds you are trying to withdraw is less than your balance (from the new account 0.00 or the found account).
-- If the withdrawal exceeds the balance, you will get an error message (displayed above) and you will be taken to the transaction amount prompt where you can enter a smaller amount or the same amount.  
-- From there you can also choose to deposit instead of withdraw (you may have simply selected the wrong transaction).  
+- The system will check if the funds are less than the balance.
+- If the withdrawal exceeds the balance, an error message will encourage the user to try again with a smaller amount or to select deposit on the next menu.  
 - Once the withdrawal is successful a message is displayed showing the new balance.
 
 #### Deposit
 - The deposit is added to the balance and a message displayed showing the new balance.
 
 #### Exit on End of Transaction
-- The user is prompted to exit or not to exit. If the user exits, the program is closed, if not the user is taken to the account name menu. This then allows for multi- or bulk data capturing efficiency.
+- The user is prompted to exit or not to exit. If the user exits, the program is closed, if not the user is taken to the account name menu. This then allows for bulk data capturing efficiency because I can simply just type in the next account name without having to exit.
+- The user is greeted with a wish for a quick return and a smiley face to close the transaction joyfully.
 
 #### Date and Time Automatically Captured
 - The transaction date and time is automatically captured in the data worksheet to save the user effort. 
@@ -153,35 +182,39 @@ If you select no on the exit menu, you will be taken back to the account name pr
 ![Date and Time Automatically Captured](assets/readme/google_account.png)
 
 ### Future Features
- - A secure entry system with authenticated passwords.
- - A search list on current names per authenticated user entered. 
- - <b>Future-proof</b> the programme by planning for a maximum amount of accounts for the Google worksheet.
- - <b>Scalability</b> is important, gear the programme to automatically add another Google account if needed.
- - Add an compound interest earned calculation and transaction fee charged feature.
- - Add a statement emailed to user and a CSV dowlload file and a interface with accounting softawre feature.
- - A query and overdraft feature.
- - International facilities could also be introduced further down the line with live linking to currency exchange.
+The programme has been <b>Future-proofed</b> with a basic layout that can easily be <b>Scaled up</b> for more complex features like:
+- More account information like addresses and contact information.
+- A secure entry system with authenticated passwords.
+- A search list for current account names. 
+- More secure Google worksheets for accounts and an option to archive unused accounts.
+- The deposit and withdrawal basic structure can be used to bring in other debit or credit transactions with a description and reference number.
+- A compound interest earned calculation on credit balances
+- A transaction fee charge schedule.
+- A statement and account history print out on request.
+- A query and overdraft feature that can handle on-line applications or requests.
+- International facilities could also be introduced further down the line, with live linking to currency exchange.
+- Automated budget and payment systems.
 
 ## Data Model
-Google Sheets was used to store account information for the application. Each user account name generated a new worksheet with it's own date and time, transaction type, amount and balance column. The date and time was automatically entered for security, <b>data integrity</b> and efficiency reasons. The cred.json file was listed as one of the gitignore files.
+Google Sheets is used to store account information for the application. Each user account name generates a new worksheet with it's own date and time, transaction type, amount and balance column. The date and time is automatically entered for security, <b>data integrity</b> and efficiency. Accounts can be deleted here if need be. The user can also do minimal account editing providing they stick to the current data structure! 
 
 ## Design
-- A flowchart was created in [Balsamiq Wireframes](https://balsamiq.com/wireframes).
-- The site has been designed with an "easy to take in" style focussed on avoiding decision fatigue and information overload. The underlined navigation items tells you where you are.  
+- Initially a wireframe was created with Lucid but could not be used due to limited user access on the unregistered package. After that a flowchart was created in [Balsamiq Wireframes](https://balsamiq.com/wireframes), which accurately reflected the changes that was made as the project progressed.
+- The site has been designed with an "easy to take in" style focussed on avoiding decision fatigue and information overload.   
 - Each stroke and click is efficient and intentional.
 
 ![Design Workflow](assets/readme/logic_wireframe.png)
 
 ## Technologies Used
 ### Language
-Python 3 was used.
+Python 3 is used.
 
 ## Frameworks, Libraries and Programs
-- [Git](https://git-scm.com/) was used for version control.
-- [Github](https://github.com/) wa used to save and store files.
-- [Lightshot](https://app.prntscr.com/en/index.html) was used for screendumps.
-- [Heroku](https://id.heroku.com/) was used to deploy the project.
-- [CI Python Linter](https://pep8ci.herokuapp.com/) was used to check the code.
+- [Git](https://git-scm.com/) is used for version control.
+- [Github](https://github.com/) is used to save and store files.
+- [Lightshot](https://app.prntscr.com/en/index.html) is used for screendumps.
+- [Heroku](https://id.heroku.com/) is used to deploy the project.
+- [CI Python Linter](https://pep8ci.herokuapp.com/) is used to check the code.
 
 ## Testing
 ### Validator Testing
@@ -208,7 +241,7 @@ The project passed the code through a PEP8 linter with no problems.
 ## Bugs
 ### Solved Bugs
 - There were many parameter issues regarding the account name intially.  These are all fixed. 
-- The sequencing of creating a new account had to be adjusted to ensure that the correct balance was given if the account was found. This was fixed by using nested functions and atomic style coding.
+- The sequencing of creating a new account had to be adjusted to ensure that the correct balance is given if the account is found. This was fixed by using nested functions and atomic style coding.
 - The initial gspead import gave several issues, which were solved by updating imported library versions.
 
 ### Remaining Bugs
@@ -216,7 +249,7 @@ There are no bugs remaining.
 
 ## Deployment and Local Development
 ### Deploying to Heroku
-This project was deployed using the Code Institute's mock terminal for Heroku with the following steps:
+This project is deployed using the Code Institute's mock terminal for Heroku with the following steps:
 1. Log in to Heroku or create a new account.
 2. On the main page click 'New' and select 'Create new app'.
 3. Choose your unique app name and select your region.
@@ -250,13 +283,14 @@ Forking the repository enables us to make a copy of the original repository to c
 - [Am I Responsive](https://ui.dev/amiresponsive) displays the site on a range of devices.
 - [Code Institute Readme Template Tutorial](Code-Institute-Solutions/readme-template).
 - [Code Institue Readme from Kera Cudmore](https://github.com/kera-cudmore).
-- [FreeCodeCamp Tutorial](https://www.youtube.com) was used for examples and learning.
-- [Emoji](https://www.emojipedia.org) was used for emojis.
+- [FreeCodeCamp Tutorial](https://www.youtube.com) is used for examples and learning.
+- [Emoji](https://www.emojipedia.org) is used for emojis.
 - [Dave Gray Beginners Python Course](https://www.youtube.com/results?search_query=codeforfree+dave) helped me gain understanding.
 - [Thomas Tomo Readme File](https://github.com/Thomas-Tomo/hangman/blob/main/README.md#how-to-play-1) provided by Mitko Bachvarov.
+- [DaveyJH/ci-portfolio-three](https://github.com/DaveyJH/ci-portfolio-three/blob/main/README.md#google-sheets) for detailed API, libraries, packages and debugging info (and lots of fun features for future projects!).
 
 ### Content
-All content was written by Caylin Dewey
+All content is written by Caylin Dewey
 
 ## Acknowledgements
 - My mentor,<b> Mitko Bachvarov</b> provided helpful feedback and advice.
