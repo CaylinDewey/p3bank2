@@ -71,7 +71,7 @@ The [logic flowchart](#design-1) gives a diagramatic layout of the programme. Th
 ![How to Input the Account Name](assets/readme/invalid_accountname.png)
 
 ### How to use the Numeric Menu
-- The user needs to select and input a number that relates to the options given, for example on the [menu](#numerical-menu-1) the key '1' for No.
+- The user needs to select and input a number that relates to the options given, for example on the [menu](#numerical-menu-1) the key '1' should be selected to choose 'Yes' and the '2' should be chosen for 'No'.
 
 ### How to input the Transaction Amount
 - The [transaction amount](#transaction-amount-prompt-1) can only be entered using the numeric keypad.  
