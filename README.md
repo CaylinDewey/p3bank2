@@ -1,11 +1,11 @@
 
 
 # Quick Bank
-Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with an account before. It is ideal for quick, efficient banking needs, especially for bulk accounts. This simple way of account keeping, is designed with the <b>minimal viable product</b> in mind that can easily be <b>scaled up</b> and future proofed on this programme's foundation.
+Quick Bank is a Python terminal banking application, which runs in the Code Institute mock terminal on Heroku.  It can be used by anyone that has worked with an account before. It is ideal for quick, efficient banking needs, especially for bulk accounts. This simple way of account keeping, is designed with the <b>minimal viable product</b> in mind.  
 
-The data is stored in a Google spreadsheet that is easy to access and read. Balances are communicated automatically before and after the transactions.  
+The programme is <b>future proofed</b>.  Once the software is <b>scaled up</b>, this basic structure will provide a good basic plaform to continue the design on. The data is stored in a Google spreadsheet that is easy to access and read. Balances are communicated automatically before and after the transactions.  
 
-The flow and input is designed with the user's comfort in mind. Minimal keystrokes and mouse use, is a priority.  Information is relayed in a concise way.  The user is prompted at every step, making for easy navigation.  
+The flow and input is designed with the user's comfort in mind. Minimal keystrokes and mouse use, is a priority.  Information is relayed in a concise way.  The user is prompted at every step, allowing for easy navigation.  
 
 [Click on this hyperlink for a live version of the project.](https://p3-bank2-bedbb06cdecb.herokuapp.com/).
 
@@ -61,36 +61,38 @@ The flow and input is designed with the user's comfort in mind. Minimal keystrok
 
 # Quick Bank
 ## Navigation 
-The [logic flowchart](#design-1) gives a diagramatic layout of the programme. The user is guided by intuitive prompts from the programme from beginning to end.  
+The [logic flowchart](#design-1) gives a diagramatic layout of the programme. The user is guided by intuitive prompts from the programme, from beginning to end.  
 
 ### How to input the Account Name
-- The account name can be created by the user, making them easy to re-use. 
-- Only alphanumerics can be used with a maximum of 15 characters for example, dave042.  
-- The user is prompted if the account name is invalid with an opportunity to try again.
-- The user is asked before an account name is created to prevent unnecessary duplications.
-- The account name is automatically converted to lower case to prevent frustrating case sensitive security features which can come at a later stage when searching functions are available.
+- Create a 15 character account name by only using letters of the alphabet and numbers.
+- The account name is automatically converted to lower case to prevent frustrating case sensitivity.
+- It is recommended that you use left-hand keys on the Qwerty keyboard to minimize keystrokes and weight-shifting - that is if this kind of efficiency is important to you - for example: fred42.
 
 ![How to Input the Account Name](assets/readme/invalid_accountname.png)
 
 ### How to use the Numeric Menu
-- The user needs to select and input a number that relates to the options given.
-- An invalid input will give the user another opportunity to try again, for example to type in the key '2' for the second option on the [menu](#numerical-menu-1).
+- The user needs to select and input a number that relates to the options given, for example on the [menu](#numerical-menu-1) the key '1' for No.
 
 ### How to input the Transaction Amount
-- The [transaction amount](#transaction-amount-prompt-1) can only be entered using numerics.  
-- If the user uses decimal amounts, it is reflected. If not, the decimals are assumed to be nil.
-- A period is used to indicate decimals (this may need to be adjusted in countries like the Netherlands where commas are used to indicate decimals.  Since the programe is written in English, it is presumed that users will use a period to indicate decimals).
+- The [transaction amount](#transaction-amount-prompt-1) can only be entered using the numeric keypad.  
+- If the user adds decimal amounts, it is reflected. If not, the decimals are assumed to be nil.
+- A period (.) is used for decimals.  
 
 ### How to Exit
-- The user will be prompted at regular intervals on the menu for an [exit](#exit-on-end-of-transaction-1) option.  If exit is selected, another prompt will appear on which the user can then select to go out of the programme or not.
+- The user will be prompted at regular intervals on the menu for an option.  These points can be seen on the [design](#design-1) chart.
+- If exit is selected, another prompt will appear on which the user can then select to go out of the programme or not.
 - If the user selects not to go out of the programme, the account name input prompt appears.
+
+![exit](assets/readme/exit_prompt.png)
 
 ### How to Credit or Debit the Account
 - Withdrawals can be used for any debits, which will reduce the balance.
+- Withdrawals are only valid if it is less than the balance. An invalid error message will guide the user to try again with the transaction amount and transaction type.
 - Deposits can be used for any credits, which will increase the balance.
+- The transaction date and time will automatically be appended in the Google worksheet.
 
 ### How to Receive a Balance
-- The user will be given a balance as soon as the account name is given and after a succesful transaction.
+- The user will be given a balance as soon as the account name is given and then after a succesful deposit or withdrawal transaction.
 
 ## User Experience (UX)
 - I can keep track of my banking accounts in a quick and easy way with a lean <b>minimal viable product</b> approach.  
@@ -102,28 +104,27 @@ The [logic flowchart](#design-1) gives a diagramatic layout of the programme. Th
 - I am prompted to exit at three crucial points for convenience - to either correct information input or to exit. 
 - The flow is forgiving and predictive, supporting my decision making, as it unfolds.
 - I am <b> set up for success</b>.  If my input is incorrect I am given another opportunity with clear instructions.
-- The withdrawal amount that exceeds the balance is clearly communicated and a retry offered. I am then given the opportunity to deposit or correct the amount. There are no embarrassing exits which would require me to log in again.
+- The withdrawal amount that exceeds the balance is clearly communicated and a retry offered. I am then given the opportunity to deposit or correct the withdrawal amount. 
 
 ### User Stories
 #### First-time Visitor Goals
 - As a first-time visitor, I understand what is required from me with short, succinct instructions.
 - I am able to change my mind and start again quickly.
-- I feel comfortable when there is not sufficient funds for a withdrawal and I am prompted to try again. 
 - If I do bulk data capturing my right-hand can hover over the numpad.  I don't want to have it return to the keyboard or mouse. I can do that if my accountnames is typed with my left-hand. Three letters and three digits for account names make this easy for example, dave042 and fred007.
 - My account balance is given to me automatically I don't have to request it.
 
 #### Returning User Goals
 - I don't want to have to remember which case I used for my accountname. 
-- The account names must be easy to access. I don't want to be limited with numbers only or letters only.
+- The account names must be easy to access. I don't want to be limited with numbers only or letters only, I want the freedom to decide what is easier to remember or work with.
 - I should be asked <b>before</b> an account is created in case I made a finger error. 
-- I can exit quickly if I am interrupted, since this is probably sensitive information that I cannot leave up on my screen for others to see. Three exit points are available at regular intervals for this. 
-- Once the software is <b>scaled up</b>, this basic structure will provide a good basic plaform to continue the design on. 
-- The user is then in a predicatable environment that makes the software easy to use.
+- I can exit quickly if I am interrupted, since this is probably sensitive information that I cannot leave up on my screen for others to see. Three exit points are available at regular intervals for this.
+- I should have a continuous predicatable environment that makes the software easy to use.  I assume because the foundation is designed to allow for growth and scalability, this will be easy to achieve.
+ 
 
 #### Frequent User Goals
 - When I return I can transact quickly and see what the new balance is. 
 - The menu to be predictable and easy to navigate.
-- I want a <b>forgiving data input standard</b> that will direct me to a prompt to try again automatically.
+- I want a <b>forgiving data input standard</b> that will direct me to a prompt to try again automatically when I give an invalid input.
 
 ## Features
 - The flow is created for an efficient and <b>intuitive</b> user experience. 
